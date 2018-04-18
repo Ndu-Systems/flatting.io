@@ -9,9 +9,7 @@ app.controller('commonController', function ($http, $scope, $window, $timeout, $
             if (response.data !== undefined) {
                 $scope.maintenance = response.data;
             }
-        }) 
-
-         
+        })     
 
     }
 

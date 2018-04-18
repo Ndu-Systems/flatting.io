@@ -1,0 +1,77 @@
+<div class="header"><h4 class="title"><i class="pe-7s-add-user"></i> Add A Tenant - Portal</h4></div>
+<div class="content all-icons">
+    <div class="content" ng-controller="addTenantController">
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>First Name(s)</label>
+                        <input type="text" ng-model="FirstName" class="form-control" placeholder="Enter First Name">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Surname</label>
+                        <input type="text" ng-model="Surname" class="form-control" placeholder="Enter Surname">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Primary Contact Number</label>
+                        <input type="text" ng-model="ContactNumber" class="form-control" placeholder="Enter Primary Contact Number">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input type="email" ng-model="Email" class="form-control" placeholder="Enter Email Address">
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Name of Employer</label>
+                        <input type="text" ng-model="WorkName" class="form-control" placeholder="Enter Name of Employer">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Work Number</label>
+                        <input type="text" ng-model="WorkTelephone" class="form-control" placeholder="Enter Work Number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Work Address</label>
+                        <textarea rows="2" ng-model="WorkAddress"  class="form-control" placeholder="Enter Work Address Here"></textarea>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Next Of Keen Name</label>
+                        <input type="text" ng-model="NOKName" class="form-control" placeholder="Enter Name of Next Of Keen">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Next Of Keen Number</label>
+                        <input type="text" ng-model="NOKNumber" class="form-control" placeholder="Enter Next Of Keen Number">
+                    </div>
+                </div>                 
+            </div>
+            <hr />
+            <p style="color:red;">{{message}}</p>
+            <hr/>
+            <div class="row">
+                <div><button type="submit" ng-click="AddTenant()" class="btn btn-success btn-fill pull-left">Add Tenant</button>  &nbsp;&nbsp;<a href="#/tenants" style="color:white"  type="submit" class="btn btn-warning btn-fill">Abort</a></div>
+            </div>            
+            <div class="clearfix"></div>
+        </form>
+    </div>
+
+</div>

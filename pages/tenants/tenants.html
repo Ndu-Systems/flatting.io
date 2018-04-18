@@ -1,0 +1,57 @@
+
+<div class="header"><h4 class="title"><i class="pe-7s-users"></i> Tenant Management - Portal</h4></div>
+<div class="content all-icons">
+	<div class="row">
+		<div class="font-icon-list col-lg-4 col-md-4 col-sm-12 col-xs-12">
+			<div class="font-icon-detail">
+				<i class="pe-7s-add-user"></i>
+				<a href="#/addTenant"><p>Add A Tenant</p></a>
+			</div>
+		</div>
+		<div class="font-icon-list col-lg-4 col-md-4 col-sm-12 col-xs-12">
+			<div class="font-icon-detail">
+				<i class="pe-7s-chat"></i>
+				<a href=""><p>Log Communication</p></a>
+			</div>
+		</div>
+		<div class="font-icon-list col-lg-4 col-md-4 col-sm-12 col-xs-12">
+			<div class="font-icon-detail">
+				<i class="pe-7s-id"></i>
+				<a href=""><p>Add A Visitor</p></a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row" ng-controller="getTenantsController">
+	<div class="col-md-12">
+		<div class="header">
+			<h4 class="title"><i class="pe-7s-network"></i> Active Tenants </h4>
+			<p class="category">Active Tenants In The System</p>
+		</div>
+		<div class="content table-responsive table-full-width">
+			<table class="table table-hover table-striped">
+				<thead>
+					<tr>
+						<th>Full Names</th>
+						<th>Email Address</th>
+						<th>Contact Number</th>
+						<th>Room Number</th>
+						<th>Building Name</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr dir-paginate="ten in tenants | filter:search | itemsPerPage:5">
+						<td>{{ten.FirstName}} {{ten.Surname}}</td>
+						<td>{{ten.Email}}</td>
+						<td>{{ten.ContactNumber}}</td>						 
+						<td>{{ten.RoomNumber}}</td>
+						<td>{{ten.BuildingName}}</td>						
+						<td>{{ten.StatusValue}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</div>

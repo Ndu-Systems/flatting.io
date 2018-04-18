@@ -9,4 +9,14 @@
             templateUrl: 'pages/common/incidents.html',
           
         })
+        .when('/tenants', {
+            title: 'Tenant Management',
+            templateUrl: 'pages/tenants/tenants.html',
+
+        })
+        .when('/addTenant', {
+            title: 'Tenant Management',
+            templateUrl: 'pages/tenants/addTenant.html',
+
+        })
 });
