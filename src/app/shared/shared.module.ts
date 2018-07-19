@@ -6,6 +6,7 @@ import { CascadingPanelComponent } from './components/cascading-panel/cascading-
 import { CascadingCardComponent } from './components/cascading-card/cascading-card.component';
 import { OverlayCardComponent } from './components/overlay-card/overlay-card.component';
 import { PanelComponent } from './components/panel/panel.component';
+import { SelectService } from './services';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { PanelComponent } from './components/panel/panel.component';
     ModalComponent,
   ],
   providers: [
+    SelectService
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 })
