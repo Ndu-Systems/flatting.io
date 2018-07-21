@@ -6,13 +6,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes.service';
-
+import { HttpClientModule } from "@angular/common/http";
 import { ViewsModule } from './views/views.module';
 import { SharedModule } from './shared/shared.module';
 import { ErrorModule } from './views/errors/error.module';
 
 // main layout
 import { NavigationModule } from './main-layout/navigation/navigation.module';
+
+
+ 
  
 
 @NgModule({
@@ -24,18 +27,21 @@ import { NavigationModule } from './main-layout/navigation/navigation.module';
       apiKey: ''
     }),
     BrowserModule,
+    SharedModule,
     BrowserAnimationsModule,
     NavigationModule,
     AppRoutes,
     RouterModule,
-    FormsModule,
-    SharedModule,
+    FormsModule,    
     ViewsModule,
     ErrorModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+ 
+  ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ]
 })

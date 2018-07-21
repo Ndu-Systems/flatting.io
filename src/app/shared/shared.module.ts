@@ -7,11 +7,15 @@ import { CascadingCardComponent } from './components/cascading-card/cascading-ca
 import { OverlayCardComponent } from './components/overlay-card/overlay-card.component';
 import { PanelComponent } from './components/panel/panel.component';
 import { SelectService } from './services';
+import { TenantPipePipe } from './pipes';
+import { NgxPaginationModule } from 'ngx-pagination';
+ 
 
 @NgModule({
   imports: [
     CommonModule,
-    MDBBootstrapModule.forRoot(),
+    MDBBootstrapModule.forRoot(),   
+    NgxPaginationModule
   ],
   declarations: [
     CascadingPanelComponent,
@@ -19,6 +23,7 @@ import { SelectService } from './services';
     OverlayCardComponent,
     PanelComponent,
     ModalComponent,
+    TenantPipePipe
   ],
   exports: [
     MDBBootstrapModule,
@@ -27,8 +32,10 @@ import { SelectService } from './services';
     OverlayCardComponent,
     PanelComponent,
     ModalComponent,
+    TenantPipePipe,   
+    NgxPaginationModule
   ],
-  providers: [
+  providers: [ 
     SelectService
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
