@@ -1,0 +1,66 @@
+<div class="card mb-4 wow fadeIn">
+  <div class="card-body d-sm-flex justify-content-between">
+    <h4 class="mb-sm-0 pt-3">
+      <a routerLink="/dashboards/v1">Home Page</a>
+      <span>/</span>
+      <span>Edit Tenant</span>
+    </h4>
+  </div>
+</div>
+<div class="row wow fadeIn mt-5" *ngIf="tenant$ | async as tenant">
+  <div class="col-md-12">
+    <div class="card card-cascade narrower">
+      <div class="view mdb-color gradient-card-header  darken-3">
+        <h4 _ngcontent-c4="" class="h4-responsive text-white"> Edit Tenant's Details </h4>
+      </div>
+      <div class="card-body">
+        <div class="card-body">
+          <form [formGroup]="cardForm">
+            <div class="row wow fadeIn">
+              <div class="md-form col-md-6">
+                <i class="fa fa-user prefix grey-text"></i>
+                <input type="text" id="validateName" formControlName="validateName" class="form-control" [(ngModel)]="tenant[0].FirstName" mdbInputDirective>
+                <!-- <label for="validateName" class="font-weight-light">Your name</label> -->
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-user prefix grey-text"></i>
+                <input type="text" id="validateSurname" formControlName="validateSurname"  [(ngModel)]="tenant[0].Surname" class="form-control" mdbInputDirective>
+                <!-- <label for="validateSurname" class="font-weight-light">Your name</label> -->
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-envelope prefix grey-text"></i>
+                <input type="email" id="validateEmail" formControlName="validateEmail" disabled [(ngModel)]="tenant[0].Email" class="form-control" mdbInputDirective>
+                <!-- <label for="validateEmail" class="font-weight-light">Your email</label> -->
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-phone prefix grey-text"></i>
+                <input type="text" id="validatePhoneNumber" formControlName="validatePhoneNumber"  [(ngModel)]="tenant[0].ContactNumber" class="form-control" mdbInputDirective>
+                <!-- <label for="validatePhoneNumber" class="font-weight-light">Your name</label> -->
+              </div>
+            </div>
+            <!-- Work information -->
+            <div class="row wow fadeIn">
+              <div class="md-form col-md-6">
+                <i class="fa fa-building prefix grey-text"></i>
+                <input type="text" id="validateWorkName" formControlName="validateWorkName"  [(ngModel)]="tenant[0].WorkName" class="form-control" mdbInputDirective>
+                <!-- <label for="validateWorkName" class="font-weight-light">Your name</label> -->
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-building prefix grey-text"></i>
+                <input type="text" id="validateWorkNumber" formControlName="validateWorkNumber"  [(ngModel)]="tenant[0].WorkTelephone" class="form-control" mdbInputDirective>
+                <!-- <label for="validateWorkNumber" class="font-weight-light">Your name</label> -->
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-building prefix grey-text"></i>
+                <textarea mdbInputDirective type="text" id="validateWorkAddress" formControlName="validateWorkAddress"  [(ngModel)]="tenant[0].WorkAddress" class="form-control md-textarea" rows="3"></textarea>
+                <!-- <label for="validateWorkAddress" class="font-weight-light">Your email</label> -->
+              </div>              
+            </div>
+            <div class="text-center py-4 mt-3">
+              <button class="btn btn-success waves-light" type="submit" (click)="update(tenant[0])" mdbWavesEffect>update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

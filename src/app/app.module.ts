@@ -13,6 +13,8 @@ import { ErrorModule } from './views/errors/error.module';
 
 // main layout
 import { NavigationModule } from './main-layout/navigation/navigation.module';
+//Services 
+import { TenantService } from './services';
 
 
  
@@ -35,12 +37,11 @@ import { NavigationModule } from './main-layout/navigation/navigation.module';
     FormsModule,    
     ViewsModule,
     ErrorModule,
-    FormsModule, 
     ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [
- 
+    TenantService
   ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ]

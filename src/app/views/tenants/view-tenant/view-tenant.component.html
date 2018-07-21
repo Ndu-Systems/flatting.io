@@ -1,0 +1,46 @@
+<div class="card mb-4 wow fadeIn">
+  <div class="card-body d-sm-flex justify-content-between">
+    <h4 class="mb-sm-0 pt-3">
+      <a routerLink="/dashboards/v1">Home Page</a>
+      <span>/</span>
+      <span>View Tenant</span>
+    </h4>
+  </div>
+</div>
+<div class="row wow fadeIn mt-5">
+  <div class="col-md-12">
+    <div class="card card-cascade narrower ">
+      <div class="card-body">
+        <table class="table">
+          <thead class="mdb-color darken-3">
+            <tr class="text-white">
+              <th>Details</th>
+              <th>Value</th>            
+            </tr>
+          </thead>
+          <tbody *ngIf="tenant$ | async as tenant">           
+            <tr>
+              <td>Full Name:</td>
+              <td>{{tenant[0].FirstName}} {{tenant[0].Surname}}</td>             
+            </tr>
+            <tr>
+              <td>Contact Number:</td>
+              <td>{{tenant[0].ContactNumber}}</td>
+            </tr>
+            <tr>
+              <td>Email:</td>
+              <td>{{tenant[0].Email}}</td>             
+            </tr>
+            <tr>    
+              <td></td>             
+                <td>
+                    <button type="button" class="btn btn-success waves-light" (click)="edit(tenant[0])" mdbWavesEffect>edit</button>
+                    <button type="button" class="btn btn-warning waves-light" (click)="viewTenant(item)" mdbWavesEffect>archive</button>
+                  </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

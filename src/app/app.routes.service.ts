@@ -7,7 +7,7 @@ import { RouterModule, Route } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 import { NotFoundComponent } from './views/errors/not-found/not-found.component';
 import { Dashboard1Component } from './views/dashboards/dashboard1/dashboard1.component';
-import { ListTenantsComponent } from './views/tenants';
+import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from './views/tenants';
 
 
 const routes: Route[] = [
@@ -20,22 +20,9 @@ const routes: Route[] = [
   { path: 'tenants', children:
     [
       { path: 'tenants', component: ListTenantsComponent },
+      { path: 'view/:id', component: ViewTenantComponent},
+      { path: 'edit/:id', component: EditTenantComponent}
     ]
-  },
-  { path: 'tables', children:
-    [
-      { path: 'table1', component: BasicTableComponent },
-    ]
-  },
-  { path: 'maps', children:
-    [
-      { path: 'map1', component: Map1Component},
-    ]
-  },
-
-  { path: 'modals', component: ModalsComponent},
-  { path: '**', component: NotFoundComponent },
-
+  },  
 ];
-
 export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes);

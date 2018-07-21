@@ -1,15 +1,12 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
-
 import { CalendarModule } from 'angular-calendar';
-
 import { SharedModule } from '../shared/shared.module';
-
 import { FooterComponent } from '../main-layout/footer/footer.component';
 import { BasicTableComponent } from './tables/basic-table/basic-table.component';
 import { ModalsComponent } from './modals/modals.component';
@@ -27,7 +24,7 @@ import { ColorsComponent } from './css/colors/colors.component';
 import { ShadowComponent } from './css/shadow/shadow.component';
 import { Profile1Component } from './profile/profile1/profile1.component';
 import { HelpComponent } from './help/help.component';
-import { ListTenantsComponent } from './tenants';
+import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from './tenants';
 
 
 @NgModule({
@@ -38,6 +35,7 @@ import { ListTenantsComponent } from './tenants';
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,
+    ReactiveFormsModule,
     AgmCoreModule.forRoot({
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en#key
       apiKey: ''
@@ -63,7 +61,8 @@ import { ListTenantsComponent } from './tenants';
     Profile1Component,
     ListTenantsComponent,
     HelpComponent,
-
+    ViewTenantComponent,
+    EditTenantComponent
   ],
   exports: [
     FooterComponent,
@@ -81,6 +80,7 @@ import { ListTenantsComponent } from './tenants';
     ImagesComponent,
     ColorsComponent,
     ShadowComponent,
+    ReactiveFormsModule
 
   ],
   schemas: [NO_ERRORS_SCHEMA]
