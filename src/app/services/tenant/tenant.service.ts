@@ -12,4 +12,9 @@ export class TenantService {
   updateTenant(data): Observable<any> {
     return this.httpClient.post(`${this.url}/tenant/update-tenant.php`, data);
   }
+
+  addTenant(data): Observable<any> {
+    return this.httpClient.post(`${this.url}/tenant/add-tenant.php`, data);
+  }
+
 }

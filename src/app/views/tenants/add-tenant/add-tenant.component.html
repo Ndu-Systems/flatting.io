@@ -1,0 +1,78 @@
+<div class="card mb-4 wow fadeIn">
+  <div class="card-body d-sm-flex justify-content-between">
+    <h4 class="mb-sm-0 pt-3">
+      <a routerLink="/dashboards/v1">Home Page</a>
+      <span>/</span>
+      <span>Add Tenant</span>
+    </h4>
+  </div>
+</div>
+<div class="row wow fadeIn mt-5">
+  <div class="col-md-12">
+    <div class="card card-cascade narrower">
+      <div class="view mdb-color gradient-card-header  darken-3">
+        <h4 _ngcontent-c4="" class="h4-responsive text-white"> Add Tenant </h4>
+      </div>
+      <div class="card-body">
+        <div class="card-body">
+          <form [formGroup]="cardForm">
+            <div class="row wow fadeIn">
+              <div class="md-form col-md-6">
+                <i class="fa fa-user prefix grey-text"></i>
+                <input type="text" id="validateName" formControlName="validateName" class="form-control" [(ngModel)]="FirstName" mdbInputDirective>
+                <label for="validateName" class="font-weight-light">Tenant's first name</label>
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-user prefix grey-text"></i>
+                <input type="text" id="validateSurname" formControlName="validateSurname"  [ngModelOptions]="{standalone: true}"  [(ngModel)]="Surname" class="form-control" mdbInputDirective>
+                <label for="validateSurname" class="font-weight-light">Tenant's surname</label>
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-envelope prefix grey-text"></i>
+                <input type="email" id="validateEmail" formControlName="validateEmail"  [ngModelOptions]="{standalone: true}" [(ngModel)]="Email" class="form-control" mdbInputDirective>
+                <label for="validateEmail" class="font-weight-light">Tenant's email</label>
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-phone prefix grey-text"></i>
+                <input type="text" id="validatePhoneNumber" formControlName="validatePhoneNumber"   [ngModelOptions]="{standalone: true}" [(ngModel)]="ContactNumber" class="form-control" mdbInputDirective>
+                <label for="validatePhoneNumber" class="font-weight-light">Tenant's contact number</label>
+              </div>
+            </div>
+            <!-- Work information -->
+            <div class="row wow fadeIn">
+              <div class="md-form col-md-6">
+                <i class="fa fa-building prefix grey-text"></i>
+                <input type="text" id="validateWorkName" formControlName="validateWorkName"  [ngModelOptions]="{standalone: true}" [(ngModel)]="WorkName" class="form-control" mdbInputDirective>
+                <label for="validateWorkName" class="font-weight-light">Tenant's work name</label>
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-building prefix grey-text"></i>
+                <input type="text" id="validateWorkNumber" formControlName="validateWorkNumber"  [ngModelOptions]="{standalone: true}" [(ngModel)]="WorkTelephone" class="form-control" mdbInputDirective>
+                <label for="validateWorkNumber" class="font-weight-light">Tenant's work number</label>
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-building prefix grey-text"></i>
+                <textarea mdbInputDirective type="text" id="validateWorkAddress" formControlName="validateWorkAddress"  [ngModelOptions]="{standalone: true}"  [(ngModel)]="WorkAddress" class="form-control md-textarea" rows="3"></textarea>
+                <label for="validateWorkAddress" class="font-weight-light">Tenant's work address</label>
+              </div>              
+            </div>
+            <div class="row wow fadeIn">
+              <div class="md-form col-md-6">
+                <i class="fa fa-sign-in  prefix grey-text"></i>
+                <input type="text" id="validateNOKName" formControlName="validateNOKName"  [ngModelOptions]="{standalone: true}" [(ngModel)]="NOKName" class="form-control" mdbInputDirective>
+                <label for="validateNOKName" class="font-weight-light">Tenant's next of kin name</label>
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-sign-in prefix grey-text"></i>
+                <input type="text" id="validateNOkNumber" formControlName="validateNOkNumber"  [ngModelOptions]="{standalone: true}" [(ngModel)]="NOKNumber" class="form-control" mdbInputDirective>
+                <label for="validateNOkNumber" class="font-weight-light">Tenant's next of kin number</label>
+              </div>
+            </div>
+            <div class="text-center py-4 mt-3">
+              <button class="btn btn-primary waves-light" type="submit" (click)="add()" mdbWavesEffect>Add Tenant</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

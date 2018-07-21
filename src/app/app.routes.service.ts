@@ -1,3 +1,4 @@
+import { AddTenantComponent } from './views/tenants/add-tenant/add-tenant.component';
 
 import { Map1Component } from './views/maps/map1/map1.component';
 import { ModalsComponent } from './views/modals/modals.component';
@@ -12,17 +13,20 @@ import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from '
 
 const routes: Route[] = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboards/v1' },
-  { path: 'dashboards', children:
-    [
-      { path: 'v1', component: Dashboard1Component },
-    ]
+  {
+    path: 'dashboards', children:
+      [
+        { path: 'v1', component: Dashboard1Component },
+      ]
   },
-  { path: 'tenants', children:
-    [
-      { path: 'tenants', component: ListTenantsComponent },
-      { path: 'view/:id', component: ViewTenantComponent},
-      { path: 'edit/:id', component: EditTenantComponent}
-    ]
-  },  
+  {
+    path: 'tenants', children:
+      [
+        { path: 'tenants', component: ListTenantsComponent },
+        { path: 'view/:id', component: ViewTenantComponent },
+        { path: 'edit/:id', component: EditTenantComponent },
+        { path: 'add', component: AddTenantComponent }
+      ]
+  },
 ];
-export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes);
+export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes, { useHash: true });

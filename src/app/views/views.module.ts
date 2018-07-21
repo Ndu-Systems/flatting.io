@@ -1,3 +1,4 @@
+import { AddTenantComponent } from './tenants/add-tenant/add-tenant.component';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -62,7 +63,8 @@ import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from '
     ListTenantsComponent,
     HelpComponent,
     ViewTenantComponent,
-    EditTenantComponent
+    EditTenantComponent,
+    AddTenantComponent
   ],
   exports: [
     FooterComponent,
