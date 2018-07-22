@@ -15,6 +15,7 @@ if (isset($data->Email) ){
  $WorkName 	= $data->WorkName;
  $NOKName = $data->NOKName;
  $NOKNumber = $data->NOKNumber;
+ $ReferenceNumber = "2018";
  $StatusId = 1;
 
 $result = $conn->prepare("SELECT * FROM tenant WHERE Email = ?"); 
@@ -22,10 +23,10 @@ $result->execute(array($Email));
 if ($result->rowCount() == 0) {
 
 $result = $conn->prepare("
-INSERT INTO  tenant (  FirstName ,  Surname ,  Email ,  ContactNumber ,  NOKName ,  NOKNumber ,  WorkAddress ,  WorkTelephone ,  WorkName ,  StatusId ) 
-VALUES ( ?,?,?,?,?,?,?,?,?,?)
+INSERT INTO  tenant (  FirstName ,  Surname ,  Email  ,ReferenceNumber ,  ContactNumber ,  NOKName ,  NOKNumber ,  WorkAddress ,  WorkTelephone ,  WorkName ,  StatusId ) 
+VALUES ( ?,?,?,?,?,?,?,?,?,?,?)
 "); 
-if($result->execute(array($FirstName,$Surname,$Email,$ContactNumber,$NOKName,$NOKNumber,$WorkAddress,$WorkTelephone, $WorkName ,$StatusId ))){
+if($result->execute(array($FirstName,$Surname,$Email,$ReferenceNumber,$ContactNumber,$NOKName,$NOKNumber,$WorkAddress,$WorkTelephone, $WorkName ,$StatusId ))){
     echo 1;
 }else{
 	echo json_encode("error while trying create tenant, please try again");
