@@ -25,8 +25,7 @@ import { ColorsComponent } from './css/colors/colors.component';
 import { ShadowComponent } from './css/shadow/shadow.component';
 import { Profile1Component } from './profile/profile1/profile1.component';
 import { HelpComponent } from './help/help.component';
-import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from './tenants';
-
+import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from './tenants'; 
 
 @NgModule({
   imports: [

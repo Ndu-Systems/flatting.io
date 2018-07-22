@@ -9,13 +9,15 @@ import { PanelComponent } from './components/panel/panel.component';
 import { SelectService } from './services';
 import { TenantPipePipe } from './pipes';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PrimeNg } from './primeng';
  
 
 @NgModule({
   imports: [
     CommonModule,
     MDBBootstrapModule.forRoot(),   
-    NgxPaginationModule
+    NgxPaginationModule,
+    ... PrimeNg    
   ],
   declarations: [
     CascadingPanelComponent,
@@ -33,7 +35,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     PanelComponent,
     ModalComponent,
     TenantPipePipe,   
-    NgxPaginationModule
+    NgxPaginationModule,
+    ... PrimeNg    
   ],
   providers: [ 
     SelectService

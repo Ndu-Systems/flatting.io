@@ -7,6 +7,10 @@
     </h4>
   </div>
 </div>
+
+<p-growl [(value)]="msgs"></p-growl>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+
 <div class="row wow fadeIn mt-5" *ngIf="tenant$ | async as tenant">
   <div class="col-md-12">
     <div class="card card-cascade narrower">
@@ -57,7 +61,7 @@
               </div>              
             </div>
             <div class="text-center py-4 mt-3">
-              <button class="btn btn-success waves-light" type="submit" (click)="update(tenant[0])" mdbWavesEffect>update</button>
+              <button class="btn btn-success waves-light" type="submit" (click)="confirm(tenant[0])" mdbWavesEffect>update</button>
             </div>
           </form>
         </div>

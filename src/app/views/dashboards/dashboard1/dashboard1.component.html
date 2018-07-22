@@ -5,11 +5,10 @@
   <div class="card-body d-sm-flex justify-content-between">
 
     <h4 class="mb-sm-0 pt-3">
-        <a routerLink="/dashboards/v1">Home Page</a>
+      <a routerLink="/dashboards/v1">Home Page</a>
       <span>/</span>
       <span>Dashboard</span>
     </h4>
-
     <form class="d-flex md-form justify-content-center">
       <!-- Default input -->
       <input type="search" placeholder="Type your query" aria-label="Search" class="form-control">
@@ -34,6 +33,22 @@
 
   <!--Grid column-->
   <div class="col-md-9 mb-4">
+    <div class="card card-cascade narrower">
+      <div class="view mdb-color gradient-card-header  darken-3">
+        <h4 _ngcontent-c4="" class="h4-responsive text-white"> Monthly Stat </h4>
+      </div>
+      <div class="row wow fadein card-body">
+        <div class="col-md-4">
+          <p-chart type="doughnut" [data]="data"></p-chart>
+        </div>
+        <div class="col-md-4 ">
+            <p-chart type="doughnut" [data]="data"></p-chart>
+          </div>
+          <div class="col-md-4 ">
+              <p-chart type="doughnut" [data]="data"></p-chart>
+            </div>
+      </div>
+    </div>
 
 
   </div>
@@ -81,6 +96,3 @@
 
 </div>
 <!--Grid row-->
-
-
-
