@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2018 at 10:46 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: Jul 22, 2018 at 03:39 PM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -103,6 +103,24 @@ CREATE TABLE `maintenance` (
 
 INSERT INTO `maintenance` (`MaintenanceId`, `Description`, `LogDate`, `TenantId`, `RoomId`, `BuildingId`, `StaffId`, `LogId`, `StatusId`) VALUES
 (1, 'Leaking Sink', '2018-04-18', 1, 1, 1, 2, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `PaymentId` int(11) NOT NULL,
+  `TenantId` int(11) NOT NULL,
+  `RoomId` int(11) NOT NULL,
+  `BuildingId` int(11) NOT NULL,
+  `AmountDue` decimal(10,0) NOT NULL,
+  `AmountPaid` decimal(10,0) NOT NULL,
+  `OutstandingAmount` decimal(10,0) NOT NULL,
+  `PaymentMonth` datetime NOT NULL,
+  `StatusId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -241,6 +259,7 @@ INSERT INTO `statuses` (`StatusId`, `StatusValue`, `RowState`) VALUES
 
 CREATE TABLE `tenant` (
   `TenantId` int(11) NOT NULL,
+  `ReferenceNumber` varchar(25) NOT NULL,
   `FirstName` varchar(225) NOT NULL,
   `Surname` varchar(225) NOT NULL,
   `Email` varchar(225) NOT NULL,
@@ -257,10 +276,10 @@ CREATE TABLE `tenant` (
 -- Dumping data for table `tenant`
 --
 
-INSERT INTO `tenant` (`TenantId`, `FirstName`, `Surname`, `Email`, `ContactNumber`, `NOKName`, `NOKNumber`, `WorkAddress`, `WorkTelephone`, `WorkName`, `StatusId`) VALUES
-(1, 'Freedom', 'Khanyile', 'freedom@mail.com', '0746958064', 'Sabelo Ntombela', '0846958064', '192 Bram Fischer Drive, Randburg 2194', '0112709000', 'Innovation Group', 1),
-(2, 'Ndumiso', 'Mthembu', 'ndumiso@mail.com', '0745006854', 'Siyabonga Nyawo', '0846958064', 'Killarney, Rosebank 2100', '0112709000', 'BBD Software Group', 1),
-(6, 'Nkululeko', 'Magwaza', 'magwaza@gmail.com', '0745685806', 'Nduduzo Khanyile', '0746958064', 'Eyethu House', '035658582', 'Ndu Systems', 1);
+INSERT INTO `tenant` (`TenantId`, `ReferenceNumber`, `FirstName`, `Surname`, `Email`, `ContactNumber`, `NOKName`, `NOKNumber`, `WorkAddress`, `WorkTelephone`, `WorkName`, `StatusId`) VALUES
+(1, '2018', 'Freedom', 'Khanyile', 'freedom@mail.com', '0746958064', 'Sabelo Ntombela', '0846958064', '192 Bram Fischer Drive, Randburg 2194', '0112709000', 'Innovation Group', 1),
+(2, '2018', 'Ndumiso', 'Mthembu', 'ndumiso@mail.com', '0745006854', 'Siyabonga Nyawo', '0846958064', 'Killarney, Rosebank 2100', '0112709000', 'BBD Software Group', 1),
+(3, '2018', 'Ntuthuko', 'Smith', 'mrnnmthembu@gmail.com', '0245484515', 'Mdu', '028857846545', 'G36 Eyethu House 270 Marshall Street', '01454545', 'BBD', 2);
 
 -- --------------------------------------------------------
 
@@ -302,6 +321,12 @@ ALTER TABLE `logs`
 --
 ALTER TABLE `maintenance`
   ADD PRIMARY KEY (`MaintenanceId`);
+
+--
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`PaymentId`);
 
 --
 -- Indexes for table `roles`
@@ -374,6 +399,12 @@ ALTER TABLE `maintenance`
   MODIFY `MaintenanceId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `PaymentId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
@@ -407,7 +438,7 @@ ALTER TABLE `statuses`
 -- AUTO_INCREMENT for table `tenant`
 --
 ALTER TABLE `tenant`
-  MODIFY `TenantId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `TenantId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
