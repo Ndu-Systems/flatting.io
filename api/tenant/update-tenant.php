@@ -14,6 +14,7 @@ if (isset($data->Email) ){
  $WorkTelephone 	= $data->WorkTelephone;
  $WorkName 	= $data->WorkName;
  $TenantId = $data->TenantId;
+ $StatusId = $data->StatusId;
 
 $result = $conn->prepare("SELECT * FROM tenant WHERE Email = ?"); 
 $result->execute(array($Email));
@@ -27,10 +28,11 @@ Email = ?,
 ContactNumber = ?, 
 WorkAddress = ?,
 WorkTelephone = ?,
-WorkName = ? 
+WorkName = ? ,
+StatusId = ? 
 WHERE TenantId = ?
 "); 
-if($result->execute(array($FirstName,$Surname,$Email,$ContactNumber,$WorkAddress,$WorkTelephone, $WorkName, $TenantId))){
+if($result->execute(array($FirstName,$Surname,$Email,$ContactNumber,$WorkAddress,$WorkTelephone, $WorkName,$StatusId, $TenantId))){
     echo 1;
 }else{
 	echo json_encode("error while trying to update details please try again");

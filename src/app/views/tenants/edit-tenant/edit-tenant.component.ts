@@ -66,7 +66,8 @@ confirm(tenant) {
       ContactNumber: tenant.ContactNumber,
       WorkAddress: tenant.WorkAddress,
       WorkTelephone: tenant.WorkTelephone,
-      WorkName: tenant.WorkName
+      WorkName: tenant.WorkName,
+      StatusId:tenant.StatusId
     };
 
   //  alert("You are About To Change Things - Click OK to proceed");
