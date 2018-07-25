@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ListTenantsComponent implements OnInit {
  tenants$ : Observable<any>;
+ search:string;
   constructor(
     private selectService : SelectService,    
     private route : Router

@@ -61,7 +61,6 @@ confirm(tenant) {
       StatusId:2
     };
 
-  //  alert("You are About To Change Things - Click OK to proceed");
     this.tenantService.updateTenant(data)
         .subscribe(response => {
           if(response == 1){
