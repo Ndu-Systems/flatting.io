@@ -1,3 +1,4 @@
+import { UploadPaymentFileComponent } from './views/payments/uplaod-payment-file/upload-payment-file/upload-payment-file.component';
 import { AddTenantComponent } from './views/tenants/add-tenant/add-tenant.component';
 
 import { Map1Component } from './views/maps/map1/map1.component';
@@ -26,6 +27,12 @@ const routes: Route[] = [
         { path: 'view/:id', component: ViewTenantComponent },
         { path: 'edit/:id', component: EditTenantComponent },
         { path: 'add', component: AddTenantComponent }
+      ]
+  },
+  {
+    path: 'payments', children:
+      [
+        { path: '', component: UploadPaymentFileComponent }
       ]
   },
 ];

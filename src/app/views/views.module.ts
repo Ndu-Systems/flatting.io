@@ -1,3 +1,4 @@
+import { UploadPaymentFileComponent } from './payments/uplaod-payment-file/upload-payment-file/upload-payment-file.component';
 import { AddTenantComponent } from './tenants/add-tenant/add-tenant.component';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -63,7 +64,8 @@ import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from '
     HelpComponent,
     ViewTenantComponent,
     EditTenantComponent,
-    AddTenantComponent
+    AddTenantComponent,
+    UploadPaymentFileComponent
   ],
   exports: [
     FooterComponent,
