@@ -1,19 +1,55 @@
 <div class="card mb-4 wow fadeIn">
-    <div class="card-body d-sm-flex justify-content-between">
-      <h4 class="mb-sm-0 pt-3">
-        <a routerLink="/dashboards/v1">Home Page</a>
-        <span>/</span>
-        <span>Payments</span>
-      </h4>
-      <div>
-        <a type="button" class="btn btn-primary waves-light" routerLink="/tenants/add" mdbWavesEffect>Uplaod bank statement</a>
+  <div class="card-body d-sm-flex justify-content-between">
+    <h4 class="mb-sm-0 pt-3">
+      <a routerLink="/dashboards/v1">Home Page</a>
+      <span>/</span>
+      <span>Payments</span>
+    </h4>
+
+    <form class="d-flex md-form justify-content-center">
+      <input type="search" placeholder="Search for a tenant" aria-label="Search" [(ngModel)]="search" [ngModelOptions]="{standalone: true}"
+        class="form-control">
+      <button class="btn btn-primary btn-sm my-0 p" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="row wow fadeIn mt-5">
+  <div class="col-md-12">
+    <div class="card card-cascade narrower ">
+      <div class="card-body">
+        <table class="table">
+          <thead class="mdb-color darken-3">
+            <tr class="text-white">
+              <th></th>
+              <th>  Upload Bank Statement</th>
+              <th></th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">
+              
+              </th>
+              <td>
+
+                  <div class="upload-btn-wrapper">
+                      <button class="btn">Upload a file</button>
+                      <input type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
+                    </div>
+
+              </td>
+              <td>
+                <button type="button" class="btn btn-info" (click)="Upload()">Upload</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <form class="d-flex md-form justify-content-center">
-        <input type="search" placeholder="Search for a tenant" aria-label="Search" [(ngModel)]="search" [ngModelOptions]="{standalone: true}"
-          class="form-control">
-        <button class="btn btn-primary btn-sm my-0 p" type="submit">
-          <i class="fa fa-search"></i>
-        </button>
-      </form>
     </div>
   </div>
+
+</div>
