@@ -27,6 +27,7 @@ import { ShadowComponent } from './css/shadow/shadow.component';
 import { Profile1Component } from './profile/profile1/profile1.component';
 import { HelpComponent } from './help/help.component';
 import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from './tenants'; 
+import { ListBuildingsComponent } from './buildings';
 
 @NgModule({
   imports: [
@@ -65,6 +66,7 @@ import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from '
     ViewTenantComponent,
     EditTenantComponent,
     AddTenantComponent,
+    ListBuildingsComponent,
     UploadPaymentFileComponent
   ],
   exports: [

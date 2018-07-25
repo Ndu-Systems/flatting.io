@@ -7,7 +7,7 @@ import { CascadingCardComponent } from './components/cascading-card/cascading-ca
 import { OverlayCardComponent } from './components/overlay-card/overlay-card.component';
 import { PanelComponent } from './components/panel/panel.component';
 import { SelectService } from './services';
-import { TenantPipePipe } from './pipes';
+import { TenantPipePipe, BuildingPipePipe } from './pipes';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PrimeNg } from './primeng';
  
@@ -25,7 +25,8 @@ import { PrimeNg } from './primeng';
     OverlayCardComponent,
     PanelComponent,
     ModalComponent,
-    TenantPipePipe
+    TenantPipePipe,
+    BuildingPipePipe
   ],
   exports: [
     MDBBootstrapModule,
@@ -34,7 +35,8 @@ import { PrimeNg } from './primeng';
     OverlayCardComponent,
     PanelComponent,
     ModalComponent,
-    TenantPipePipe,   
+    TenantPipePipe, 
+    BuildingPipePipe,  
     NgxPaginationModule,
     ... PrimeNg    
   ],

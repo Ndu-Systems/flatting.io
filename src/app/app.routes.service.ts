@@ -1,4 +1,5 @@
 import { UploadPaymentFileComponent } from './views/payments/uplaod-payment-file/upload-payment-file/upload-payment-file.component';
+import { ListBuildingsComponent } from './views/buildings/list-buildings/list-buildings.component';
 import { AddTenantComponent } from './views/tenants/add-tenant/add-tenant.component';
 
 import { Map1Component } from './views/maps/map1/map1.component';
@@ -30,10 +31,16 @@ const routes: Route[] = [
       ]
   },
   {
-    path: 'payments', children:
+    path: 'buildings', children:
       [
-        { path: '', component: UploadPaymentFileComponent }
+        { path: 'buildings', component: ListBuildingsComponent }       
       ]
   },
+  {
+    path: 'payments', children:
+    [
+      { path: '', component: UploadPaymentFileComponent }
+    ]
+  }
 ];
 export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes, { useHash: true });
