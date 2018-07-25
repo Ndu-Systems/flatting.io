@@ -53,3 +53,33 @@
   </div>
 
 </div>
+
+
+
+<div class="row wow fadeIn mt-5" *ngIf="data as data">
+    <div class="col-md-12">
+      <div class="card card-cascade narrower ">
+        <div class="card-body">
+          <table class="table">
+            <thead class="mdb-color darken-3">
+              <tr class="text-white">
+                <th>#</th>
+                <th>Ref</th>
+                <th>Amount</th>
+               
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of data">
+                <th scope="row">1</th>
+                <td>{{item.Ref}}</td>
+                <td>{{item.Amount}}</td>
+               
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+  </div>

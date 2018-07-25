@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'ts-xlsx';
+import { IPayment } from '../models/Payment';
 
 @Component({
   selector: 'app-upload-payment-file',
@@ -7,7 +8,7 @@ import * as XLSX from 'ts-xlsx';
   styleUrls: ['./upload-payment-file.component.scss']
 })
 export class UploadPaymentFileComponent implements OnInit {
-  data: {}[];
+  data:Array<IPayment>;
 
   constructor() { }
 
@@ -33,8 +34,15 @@ export class UploadPaymentFileComponent implements OnInit {
               let first_sheet_name = workbook.SheetNames[0];
               let worksheet = workbook.Sheets[first_sheet_name];
               this.data = XLSX.utils.sheet_to_json(worksheet,{raw:true});
-              console.log(this.data);
+              this.processData();
+
           }
           fileReader.readAsArrayBuffer(this.file);
+  }
+  processData(){
+    if(this.data){
+      console.log(this.data);
+
+    }
   }
 }
