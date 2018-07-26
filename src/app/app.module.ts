@@ -1,3 +1,4 @@
+import { BuildingService } from './services/building/building.service';
 import { AgmCoreModule } from '@agm/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -41,7 +42,8 @@ import { TenantService } from './services';
     HttpClientModule
   ],
   providers: [
-    TenantService
+    TenantService,
+    BuildingService
   ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ]

@@ -1,3 +1,4 @@
+ 
 import { UploadPaymentFileComponent } from './views/payments/uplaod-payment-file/upload-payment-file/upload-payment-file.component';
 import { ListBuildingsComponent } from './views/buildings/list-buildings/list-buildings.component';
 import { AddTenantComponent } from './views/tenants/add-tenant/add-tenant.component';
@@ -11,6 +12,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { NotFoundComponent } from './views/errors/not-found/not-found.component';
 import { Dashboard1Component } from './views/dashboards/dashboard1/dashboard1.component';
 import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from './views/tenants';
+import { ViewBuildingComponent, EditBuildingComponent } from './views/buildings';
 
 
 const routes: Route[] = [
@@ -24,7 +26,7 @@ const routes: Route[] = [
   {
     path: 'tenants', children:
       [
-        { path: 'tenants', component: ListTenantsComponent },
+        { path: '', component: ListTenantsComponent },
         { path: 'view/:id', component: ViewTenantComponent },
         { path: 'edit/:id', component: EditTenantComponent },
         { path: 'add', component: AddTenantComponent }
@@ -33,7 +35,9 @@ const routes: Route[] = [
   {
     path: 'buildings', children:
       [
-        { path: 'buildings', component: ListBuildingsComponent }       
+        { path: '', component: ListBuildingsComponent },
+        { path: 'view/:id', component: ViewBuildingComponent },
+        { path: 'edit/:id', component: EditBuildingComponent }     
       ]
   },
   {

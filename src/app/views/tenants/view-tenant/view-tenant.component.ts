@@ -66,7 +66,7 @@ confirm(tenant) {
           if(response == 1){
             this.showSuccess();
             setTimeout(()=>{
-           this.router.navigate(['/tenants/tenants']);
+           this.router.navigate(['/tenants']);
 
             },2000);
           }
