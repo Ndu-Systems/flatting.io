@@ -50,7 +50,7 @@ export class AddTenantComponent implements OnInit {
 
   showError(msg) {
     this.msgs = [];
-    this.msgs.push({ severity: 'warn', summary: 'Success Message', detail: `${msg}` });
+    this.msgs.push({ severity: 'warn', summary: 'Error Message', detail: `${msg}` });
   }
 
   add() {
@@ -101,7 +101,7 @@ export class AddTenantComponent implements OnInit {
         if (response == 1) {
           this.showSuccess();
           setTimeout(() => {
-            this.router.navigate(['/tenants/tenants']);
+            this.router.navigate(['/tenants']);
           }, 2000);
         }
         else {

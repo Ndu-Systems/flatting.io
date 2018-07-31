@@ -12,5 +12,8 @@ export class BuildingService {
   updateBuilding(data): Observable<any> {
     return this.httpClient.post(`${this.url}/building/update-building.php`, data);
   }
+  addBuilding(data): Observable<any> {
+    return this.httpClient.post(`${this.url}/building/add-building.php`, data);
+  }
 
 }

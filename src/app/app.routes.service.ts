@@ -1,3 +1,4 @@
+import { AddBuildingComponent } from './views/buildings/add-building/add-building.component';
  
 import { UploadPaymentFileComponent } from './views/payments/uplaod-payment-file/upload-payment-file/upload-payment-file.component';
 import { ListBuildingsComponent } from './views/buildings/list-buildings/list-buildings.component';
@@ -37,7 +38,8 @@ const routes: Route[] = [
       [
         { path: '', component: ListBuildingsComponent },
         { path: 'view/:id', component: ViewBuildingComponent },
-        { path: 'edit/:id', component: EditBuildingComponent }     
+        { path: 'edit/:id', component: EditBuildingComponent },
+        { path: 'add', component: AddBuildingComponent }     
       ]
   },
   {

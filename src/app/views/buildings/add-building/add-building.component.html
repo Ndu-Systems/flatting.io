@@ -1,0 +1,62 @@
+<p-growl [(value)]="msgs"></p-growl>
+<div class="card mb-4 wow fadeIn">
+  <div class="card-body d-sm-flex justify-content-between">
+    <h4 class="mb-sm-0 pt-3">
+      <a routerLink="/dashboards/v1">Home Page</a>
+      <span>/</span>
+      <span>Add Building</span>
+    </h4>
+  </div>
+</div>
+<div class="row wow fadeIn mt-5">
+  <div class="col-md-12">
+    <div class="card card-cascade narrower">
+      <div class="view mdb-color gradient-card-header  darken-3">
+        <h4 _ngcontent-c4="" class="h4-responsive text-white"> Add Building </h4>
+      </div>
+      <div class="card-body">
+        <div class="card-body">
+          <form [formGroup]="cardForm">
+            <div class="row wow fadeIn">
+              <div class="md-form col-md-6">
+                <i class="fa fa-building prefix grey-text"></i>
+                <input type="text" id="validateName" formControlName="validateName" class="form-control" [(ngModel)]="BuildingName" mdbInputDirective>
+                <label for="validateName" class="font-weight-light">Name Of Building</label>
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-bookmark prefix grey-text"></i>
+                <input type="text" id="validateCity" formControlName="validateCity"  [ngModelOptions]="{standalone: true}"  [(ngModel)]="City" class="form-control" mdbInputDirective>
+                <label for="validateCity" class="font-weight-light">Enter City</label>
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-map-marker prefix grey-text"></i>
+                <input type="email" id="validateAddressLine1" formControlName="validateAddressLine1"  [ngModelOptions]="{standalone: true}" [(ngModel)]="AddressLine1" class="form-control" mdbInputDirective>
+                <label for="validateAddressLine1" class="font-weight-light">Address Line 1</label>
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-map-marker prefix grey-text"></i>
+                <input type="text" id="validateAddressLine2" formControlName="validateAddressLine2"   [ngModelOptions]="{standalone: true}" [(ngModel)]="AddressLine2" class="form-control" mdbInputDirective>
+                <label for="validateAddressLine2" class="font-weight-light">Address Line 2</label>
+              </div>
+            </div>
+            <!-- Work information -->
+            <div class="row wow fadeIn">
+              <div class="md-form col-md-6">
+                <i class="fa fa-map-marker prefix grey-text"></i>
+                <input type="text" id="validateAddressLine3" formControlName="validateAddressLine3"  [ngModelOptions]="{standalone: true}" [(ngModel)]="AddressLine3" class="form-control" mdbInputDirective>
+                <label for="validateAddressLine3" class="font-weight-light">Address Line 3</label>
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-certificate prefix grey-text"></i>
+                <input type="text" id="validatePostCode" formControlName="validatePostCode"  [ngModelOptions]="{standalone: true}" [(ngModel)]="PostCode" class="form-control" mdbInputDirective>
+                <label for="validatePostCode" class="font-weight-light">Postal Code</label>
+              </div>                          
+            </div>             
+            <div class="text-center py-4 mt-3">
+              <button class="btn btn-primary waves-light" type="submit" (click)="add()" mdbWavesEffect>Add Building</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
