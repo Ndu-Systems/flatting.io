@@ -1,0 +1,67 @@
+ 
+<p-growl [(value)]="msgs"></p-growl>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+
+
+<div class="card mb-4 wow fadeIn">
+  <div class="card-body d-sm-flex justify-content-between">
+    <h4 class="mb-sm-0 pt-3">
+      <a routerLink="/dashboards/v1">Home Page</a>
+      <span>/</span>
+      <span>Edit Building</span>
+    </h4>
+  </div>
+</div>
+
+<div class="row wow fadeIn mt-5" *ngIf="building$ | async as building">
+  <div class="col-md-12">
+    <div class="card card-cascade narrower">
+      <div class="view mdb-color gradient-card-header  darken-3">
+        <h4 _ngcontent-c4="" class="h4-responsive text-white"> Edit Building's Details </h4>
+      </div>
+      <div class="card-body">
+        <div class="card-body">
+          <form [formGroup]="cardForm">
+            <div class="row wow fadeIn">
+              <div class="md-form col-md-6">
+                <i class="fa fa-building prefix grey-text"></i>
+                <input type="text" id="validateName" formControlName="validateName" class="form-control" [(ngModel)]="building[0].BuildingName" mdbInputDirective>
+                <!-- <label for="validateName" class="font-weight-light">Your name</label> -->
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-building prefix grey-text"></i>
+                <input type="text" id="validateAddressLine1" formControlName="validateAddressLine1"  [(ngModel)]="building[0].AddressLine1" class="form-control" mdbInputDirective>
+                <!-- <label for="validateSurname" class="font-weight-light">Your name</label> -->
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-building prefix grey-text"></i>
+                <input type="text" id="validateAddressLine2" formControlName="validateAddressLine2" disabled [(ngModel)]="building[0].AddressLine2" class="form-control" mdbInputDirective>
+                <!-- <label for="validateEmail" class="font-weight-light">Your email</label> -->
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-building prefix grey-text"></i>
+                <input type="text" id="validateAddressLine3" formControlName="validateAddressLine3"  [(ngModel)]="building[0].AddressLine3" class="form-control" mdbInputDirective>
+                <!-- <label for="validatePhoneNumber" class="font-weight-light">Your name</label> -->
+              </div>
+            </div>
+            <!-- Work information -->
+            <div class="row wow fadeIn">
+              <div class="md-form col-md-6">
+                <i class="fa fa-building prefix grey-text"></i>
+                <input type="text" id="validateCity" formControlName="validateCity"  [(ngModel)]="building[0].City" class="form-control" mdbInputDirective>
+                <!-- <label for="validateWorkName" class="font-weight-light">Your name</label> -->
+              </div>
+              <div class="md-form col-md-6">
+                <i class="fa fa-building prefix grey-text"></i>
+                <input type="text" id="validateCode" formControlName="validateCode"  [(ngModel)]="building[0].PostCode" class="form-control" mdbInputDirective>
+                <!-- <label for="validateWorkNumber" class="font-weight-light">Your name</label> -->
+              </div>           
+            </div>
+            <div class="text-center py-4 mt-3">
+              <button class="btn btn-success waves-light" type="submit" (click)="confirm(building[0])" mdbWavesEffect>update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

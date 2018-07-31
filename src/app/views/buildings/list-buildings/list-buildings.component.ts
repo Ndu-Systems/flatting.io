@@ -20,5 +20,7 @@ export class ListBuildingsComponent implements OnInit {
   ngOnInit() {
     this.buildings$ =  this.selectService.select("buildings WHERE StatusId = 1  order by BuildingId DESC");
   }
-
+  viewBuilding(building){    
+    this.route.navigate(['/buildings/view', building.BuildingId]);
+  }
 }
