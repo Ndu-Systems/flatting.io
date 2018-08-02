@@ -14,10 +14,17 @@ import { NotFoundComponent } from './views/errors/not-found/not-found.component'
 import { Dashboard1Component } from './views/dashboards/dashboard1/dashboard1.component';
 import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from './views/tenants';
 import { ViewBuildingComponent, EditBuildingComponent } from './views/buildings';
+import { LoginComponent } from './views/accounts';
 
 
 const routes: Route[] = [
-  { path: '', pathMatch: 'full', redirectTo: 'dashboards/v1' },
+  { path: '', pathMatch: 'full', redirectTo: 'accounts/login' },
+  
+  {
+    path: 'accounts',children:[
+      {path:'login', component: LoginComponent }
+    ]
+  },
   {
     path: 'dashboards', children:
       [

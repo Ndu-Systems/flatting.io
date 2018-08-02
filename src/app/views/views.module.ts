@@ -1,3 +1,4 @@
+ 
 import { AddBuildingComponent } from './buildings/add-building/add-building.component';
  
 import { UploadPaymentFileComponent } from './payments/uplaod-payment-file/upload-payment-file/upload-payment-file.component';
@@ -30,6 +31,7 @@ import { Profile1Component } from './profile/profile1/profile1.component';
 import { HelpComponent } from './help/help.component';
 import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from './tenants'; 
 import { ListBuildingsComponent, ViewBuildingComponent, EditBuildingComponent } from './buildings';
+import { LoginComponent } from './accounts';
  
 @NgModule({
   imports: [
@@ -72,7 +74,8 @@ import { ListBuildingsComponent, ViewBuildingComponent, EditBuildingComponent } 
     UploadPaymentFileComponent,
     ViewBuildingComponent,
     EditBuildingComponent,
-    AddBuildingComponent
+    AddBuildingComponent,
+    LoginComponent
   ],
   exports: [
     FooterComponent,

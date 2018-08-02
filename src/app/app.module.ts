@@ -1,4 +1,5 @@
-import { BuildingService } from './services/building/building.service';
+
+
 import { AgmCoreModule } from '@agm/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,11 +16,8 @@ import { ErrorModule } from './views/errors/error.module';
 // main layout
 import { NavigationModule } from './main-layout/navigation/navigation.module';
 //Services 
-import { TenantService } from './services';
+import { TenantService, BuildingService, AccountService } from './services';
 
-
- 
- 
 
 @NgModule({
   declarations: [
@@ -35,7 +33,7 @@ import { TenantService } from './services';
     NavigationModule,
     AppRoutes,
     RouterModule,
-    FormsModule,    
+    FormsModule,
     ViewsModule,
     ErrorModule,
     ReactiveFormsModule,
@@ -43,9 +41,10 @@ import { TenantService } from './services';
   ],
   providers: [
     TenantService,
-    BuildingService
+    BuildingService,
+    AccountService
   ],
   bootstrap: [AppComponent],
-  schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

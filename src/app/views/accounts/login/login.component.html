@@ -1,0 +1,32 @@
+<p-growl [(value)]="msgs"></p-growl>
+<div class="row wow fadeIn mt-5">
+  <div class="col-md-12">
+    <div class="card card-cascade narrower">
+      <div class="view mdb-color gradient-card-header  darken-3">
+        <h4 _ngcontent-c4="" class="h4-responsive text-white"> Login</h4>
+      </div>
+      <div class="card-body">
+        <div class="card-body">
+          <form [formGroup]="cardForm">
+            <div class="row wow fadeIn">
+              <div class="md-form col-md-6 offset-3">
+                <i class="fa fa-user prefix grey-text"></i>
+                <input type="email" id="validateEmail" formControlName="validateEmail" [ngModelOptions]="{standalone: true}"
+                  [(ngModel)]="Email" class="form-control" mdbInputDirective>
+                <label for="validateEmail" class="font-weight-light">Enter Email</label>
+              </div>
+              <div class="md-form col-md-6 offset-3">
+                <i class="fa fa-lock prefix grey-text"></i>
+                <input type="password" id="validatePassword" formControlName="validatePassword" [ngModelOptions]="{standalone: true}"
+                  [(ngModel)]="Password" class="form-control" mdbInputDirective>
+                <label for="validatePassword" class="font-weight-light">Enter Password</label>
+              </div>
+            </div>
+            <div class="text-center py-4 mt-3">
+              <button class="btn btn-primary waves-light" type="submit" (click)="login()" mdbWavesEffect>Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

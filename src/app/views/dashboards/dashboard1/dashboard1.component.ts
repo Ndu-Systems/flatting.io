@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { UserDataService } from '../../../shared/services';
 
 @Component({
   selector: 'app-dashboard1',
@@ -6,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard1.component.scss']
 })
 export class Dashboard1Component implements OnInit {
-  data: any;
-    
-  constructor() {
+  data: any;  
+  constructor(private userDataService : UserDataService) {
     this.data = {
         labels: ['Paid','Un-paid','Partial'],
         datasets: [
@@ -27,7 +28,7 @@ export class Dashboard1Component implements OnInit {
             }]    
         };
 }
-  ngOnInit() {
+  ngOnInit() { 
   }
 
 }

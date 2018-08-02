@@ -23,7 +23,7 @@ export class AddBuildingComponent implements OnInit {
     private buildingService: BuildingService,
     private router : Router
   ) {
-    this.cardForm = fb.group({
+      this.cardForm = fb.group({
       validateName: [null, Validators.required],
       validateCity: [null, Validators.required],
       validateAddressLine1: [null, Validators.required],
