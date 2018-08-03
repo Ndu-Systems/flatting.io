@@ -1,9 +1,9 @@
- import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Message } from 'primeng/api';
 import { Router } from '@angular/router';
-import { AccountService } from '../../../services';
-import { UserDataService } from '../../../shared/services';
+import { AccountService } from '../../../services'; 
+import { AuthenticationService } from '../../../shared/authantication';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router : Router,
     private accountService : AccountService,
-    private userdDataService: UserDataService
+    private authenticationService: AuthenticationService
+
   ) {
     this.cardForm = fb.group({
       validateEmail: [null, Validators.required],
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
   }
   showError(msg) {
     this.msgs = [];
-    this.msgs.push({ severity: 'warn', summary: 'Error Message', detail: `${msg}` });
+    this.msgs.push({ severity: 'warn', summary: 'Validation Message', detail: `${msg}` });
   }
   login(){
     if (!this.Email) {
@@ -51,18 +52,17 @@ export class LoginComponent implements OnInit {
     }
 
     this.accountService.loginUser(this.Email,this.Password)
-        .subscribe(response =>{
-          if(response){
-             
-            let user = response.data[0];
+        .subscribe((response) =>{
+          let user = response;                 
             if(user.Email!== undefined){
               this.showSuccess();
-              setTimeout(() => {
-                // this.userdDataService.saveUser(user);
-                localStorage.setItem("currentUser",JSON.stringify({username:user.Email }));
-               this.router.navigate(["/dashboards/v1"]);   
+              setTimeout(() => {            
+                localStorage.setItem('currentUser',JSON.stringify({username:user.Email}));                
+                this.authenticationService.loginUser(user);
               }, 2000);                           
-            }
+            }        
+          else{
+            this.showError("Email/Password is not verified");
           }
         });    
   }

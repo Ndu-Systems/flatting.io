@@ -1,59 +1,53 @@
 import { AddBuildingComponent } from './views/buildings/add-building/add-building.component';
- 
 import { UploadPaymentFileComponent } from './views/payments/uplaod-payment-file/upload-payment-file/upload-payment-file.component';
 import { ListBuildingsComponent } from './views/buildings/list-buildings/list-buildings.component';
 import { AddTenantComponent } from './views/tenants/add-tenant/add-tenant.component';
-
-import { Map1Component } from './views/maps/map1/map1.component';
-import { ModalsComponent } from './views/modals/modals.component';
-import { BasicTableComponent } from './views/tables/basic-table/basic-table.component';
-import { Profile1Component } from './views/profile/profile1/profile1.component';
 import { RouterModule, Route } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
-import { NotFoundComponent } from './views/errors/not-found/not-found.component';
 import { Dashboard1Component } from './views/dashboards/dashboard1/dashboard1.component';
 import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from './views/tenants';
 import { ViewBuildingComponent, EditBuildingComponent } from './views/buildings';
 import { LoginComponent } from './views/accounts';
+import { AuthGuard } from './shared/authantication';
 
 
 const routes: Route[] = [
   { path: '', pathMatch: 'full', redirectTo: 'accounts/login' },
-  
+
   {
-    path: 'accounts',children:[
-      {path:'login', component: LoginComponent }
+    path: 'accounts', children: [
+      { path: 'login', component: LoginComponent }
     ]
   },
   {
     path: 'dashboards', children:
       [
-        { path: 'v1', component: Dashboard1Component },
+        { path: 'v1', component: Dashboard1Component, canActivate: [AuthGuard] },
       ]
   },
   {
     path: 'tenants', children:
       [
-        { path: '', component: ListTenantsComponent },
-        { path: 'view/:id', component: ViewTenantComponent },
-        { path: 'edit/:id', component: EditTenantComponent },
-        { path: 'add', component: AddTenantComponent }
+        { path: '', component: ListTenantsComponent, canActivate: [AuthGuard] },
+        { path: 'view/:id', component: ViewTenantComponent, canActivate: [AuthGuard] },
+        { path: 'edit/:id', component: EditTenantComponent, canActivate: [AuthGuard] },
+        { path: 'add', component: AddTenantComponent, canActivate: [AuthGuard] }
       ]
   },
   {
     path: 'buildings', children:
       [
-        { path: '', component: ListBuildingsComponent },
-        { path: 'view/:id', component: ViewBuildingComponent },
-        { path: 'edit/:id', component: EditBuildingComponent },
-        { path: 'add', component: AddBuildingComponent }     
+        { path: '', component: ListBuildingsComponent, canActivate: [AuthGuard] },
+        { path: 'view/:id', component: ViewBuildingComponent, canActivate: [AuthGuard] },
+        { path: 'edit/:id', component: EditBuildingComponent, canActivate: [AuthGuard] },
+        { path: 'add', component: AddBuildingComponent, canActivate: [AuthGuard] }
       ]
   },
   {
     path: 'payments', children:
-    [
-      { path: '', component: UploadPaymentFileComponent }
-    ]
+      [
+        { path: '', component: UploadPaymentFileComponent, canActivate: [AuthGuard] }
+      ]
   }
 ];
 export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes, { useHash: true });

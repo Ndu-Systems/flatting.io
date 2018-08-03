@@ -1,6 +1,7 @@
  
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthenticationService } from '../../shared/authantication';
  
 
 
@@ -11,19 +12,23 @@ import { Observable } from 'rxjs';
 })
 export class NavigationComponent implements OnInit {
   @ViewChild('sidenav') sidenav: ElementRef;
-
+  isLoggedIn$: Observable<boolean>; 
   clicked: boolean;
-  currentUser  :any
-  constructor() {
+  user : any = JSON.parse(localStorage.getItem('currentUser'));
+  constructor(
+    private authenticationService: AuthenticationService
+  ) {
     this.clicked = this.clicked === undefined ? false : true;
   }
 
   ngOnInit() {   
-    this.currentUser  = localStorage.getItem("currentUser"); 
+    this.isLoggedIn$ = this.authenticationService.isLoggedIn;
   }
 
   setClicked(val: boolean): void {
     this.clicked = val;
   }
-
+  onLogout(){
+    this.authenticationService.logoutUser();
+  }
 }

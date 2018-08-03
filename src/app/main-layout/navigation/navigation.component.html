@@ -1,5 +1,5 @@
 <!--Main Navigation-->
-<header>
+<header *ngIf="isLoggedIn$ | async">
 
     <!-- Sidebar -->
     <div class="sidebar-fixed position-fixed">
@@ -21,8 +21,8 @@
             <a routerLink="payments" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
                 <i class="fa fa-money mr-3"></i>Payments
             </a>
-            <div *ngIf="currentUser !== undefined">
-                <a routerLink="accounts/login"  routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
+            <div *ngIf="isLoggedIn$ | async">
+                <a routerLink="" (click)="onLogout()"  routerLinkActive="" class="list-group-item list-group-item-action waves-effect">
                     <i class="fa fa-sign-out"></i> Logout
                 </a>
             </div>           
@@ -47,13 +47,16 @@
             <!-- Links -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" mdbWavesEffect>Home
+                    <a routerLink="dashboards/v1" class="nav-link" mdbWavesEffect>Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-
             </ul>
-
+            <ul class="navbar-nav nav-flex-icons">
+                <li class="nav-item">
+                    Hello ! {{user.username}}
+                </li>
+            </ul>
         </links>
         <!-- Collapsible content -->
 

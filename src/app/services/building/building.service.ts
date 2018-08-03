@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_URL } from '../../shared/config';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class BuildingService {
   url = API_URL
   constructor(private httpClient: HttpClient) { }

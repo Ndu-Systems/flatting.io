@@ -1,3 +1,4 @@
+ 
 import { ModalComponent } from './components/modal/modal.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -10,6 +11,7 @@ import { SelectService, UserDataService } from './services';
 import { TenantPipePipe, BuildingPipePipe } from './pipes';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PrimeNg } from './primeng';
+import { AuthenticationService, AuthGuard } from './authantication';
  
 
 @NgModule({
@@ -42,7 +44,8 @@ import { PrimeNg } from './primeng';
   ],
   providers: [ 
     SelectService,
-    UserDataService
+    UserDataService,
+    AuthenticationService 
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 })

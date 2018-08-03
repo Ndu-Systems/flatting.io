@@ -15,8 +15,8 @@ $data = json_decode(file_get_contents("php://input"));
 
   if($user)
   {
-    $rows['data'][] = $user;
-    echo json_encode($rows);
+      
+    echo json_encode($user);
       // if(password_verify($Password, $user['Password']))
       // {
       //   $rows['data'][] = $user;
@@ -28,7 +28,7 @@ $data = json_decode(file_get_contents("php://input"));
   }
   else
   {
-	  echo json_encode("Invalid Email Address");
+	  echo json_encode("Error Occurred");
   }
 
 ?>
