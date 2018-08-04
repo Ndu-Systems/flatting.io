@@ -33,6 +33,13 @@ export const mock_invoice:Array<IInvoice> = [
         Month:'July',
         Name:'Themba',
         Room:'G37'
+    },
+    {
+        Ref:222,
+        Amount:3000,
+        Month:'July',
+        Name:'Bahluphile',
+        Room:'202'
     }
     
 ];

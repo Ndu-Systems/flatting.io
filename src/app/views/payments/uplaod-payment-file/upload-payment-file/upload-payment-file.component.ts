@@ -1,7 +1,7 @@
 import { mock_invoice } from "./../models/Payment";
 import { Component, OnInit } from "@angular/core";
 import * as XLSX from "ts-xlsx";
-import { IPayment, IInvoice,IPaymentReport } from "../models/Payment";
+import { IPayment, IInvoice, IPaymentReport } from "../models/Payment";
 
 @Component({
   selector: "app-upload-payment-file",
@@ -9,8 +9,8 @@ import { IPayment, IInvoice,IPaymentReport } from "../models/Payment";
   styleUrls: ["./upload-payment-file.component.scss"]
 })
 export class UploadPaymentFileComponent implements OnInit {
-  data: Array<IPayment>=[];
-  paymentReport: Array<IPaymentReport>=[];
+  data: Array<IPayment> = [];
+  paymentReport: Array<IPaymentReport> = [];
   invoiceData: Array<IInvoice> = mock_invoice;
   constructor() {}
 
@@ -40,8 +40,31 @@ export class UploadPaymentFileComponent implements OnInit {
     fileReader.readAsArrayBuffer(this.file);
   }
   processData() {
+  
     if (this.data) {
-      console.log(this.data);
+      // unpaid
+      this.invoiceData.forEach(x => {
+        let check: boolean = false;
+        this.data.forEach(y => {
+          if (x.Ref === y.Ref) {
+            check = true;
+          }
+        });
+        if (!check) {
+          let obj: IPaymentReport = {
+            Ref: x.Ref,
+            AmountPaid: 0,
+            AmountInvoiced: x.Amount,
+            Month: x.Month,
+            Name: x.Name,
+            Room: x.Room,
+            Status: "unpaid"
+          };
+          this.paymentReport.push(obj);
+        }
+      });
+
+      //paid
       this.data.forEach(bank_row => {
         this.invoiceData.forEach(invoice_data => {
             let repObj:IPaymentReport = {
@@ -68,9 +91,8 @@ export class UploadPaymentFileComponent implements OnInit {
     }
   }
 
-  GetStatus(AmountPaid,AmountInvoiced):string{
-    if(AmountPaid ===0) return "unpaid";
-    if(AmountPaid < AmountInvoiced) return "incomplete";
-    if(AmountPaid >= AmountInvoiced) return "paid";
+  GetStatus(AmountPaid, AmountInvoiced): string {
+    if (AmountPaid < AmountInvoiced) return "incomplete";
+    if (AmountPaid >= AmountInvoiced) return "paid";
   }
 }
