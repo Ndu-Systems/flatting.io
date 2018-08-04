@@ -1,7 +1,10 @@
-import { mock_invoice } from "./../models/Payment";
+import { Subscription } from "rxjs";
+import { mock_invoice, ISavePayments } from "./../models/Payment";
 import { Component, OnInit } from "@angular/core";
 import * as XLSX from "ts-xlsx";
 import { IPayment, IInvoice, IPaymentReport } from "../models/Payment";
+import { PaymentsService } from "../../../../services";
+import { getLocaleDateTimeFormat } from "@angular/common";
 
 @Component({
   selector: "app-upload-payment-file",
@@ -12,7 +15,7 @@ export class UploadPaymentFileComponent implements OnInit {
   data: Array<IPayment> = [];
   paymentReport: Array<IPaymentReport> = [];
   invoiceData: Array<IInvoice> = mock_invoice;
-  constructor() {}
+  constructor(private paymentService: PaymentsService) {}
 
   ngOnInit() {}
 
@@ -22,7 +25,7 @@ export class UploadPaymentFileComponent implements OnInit {
     this.file = event.target.files[0];
   }
 
-  Upload() {
+  upload() {
     let fileReader = new FileReader();
     fileReader.onload = e => {
       this.arrayBuffer = fileReader.result;
@@ -40,7 +43,8 @@ export class UploadPaymentFileComponent implements OnInit {
     fileReader.readAsArrayBuffer(this.file);
   }
   processData() {
-  this.paymentReport=[];
+    this.paymentReport = [];
+    console.log("this.data",this.data)
     if (this.data) {
       // unpaid
       this.invoiceData.forEach(x => {
@@ -58,7 +62,8 @@ export class UploadPaymentFileComponent implements OnInit {
             Month: x.Month,
             Name: x.Name,
             Room: x.Room,
-            Status: "unpaid"
+            Status: "unpaid",
+            Date: 'null'
           };
           this.paymentReport.push(obj);
         }
@@ -67,25 +72,30 @@ export class UploadPaymentFileComponent implements OnInit {
       //paid
       this.data.forEach(bank_row => {
         this.invoiceData.forEach(invoice_data => {
-            let repObj:IPaymentReport = {
-              Ref:undefined,
-              AmountPaid:undefined,
-              AmountInvoiced:undefined,
-              Month:undefined,
-              Name:undefined,
-              Room:undefined,
-              Status:undefined,
-            };
-            if(bank_row.Ref === invoice_data.Ref){
-              repObj.AmountInvoiced = invoice_data.Amount;
-              repObj.AmountPaid = bank_row.Amount;
-              repObj.Month = invoice_data.Month;
-              repObj.Name = invoice_data.Name;
-              repObj.Room = invoice_data.Room;
-              repObj.Ref = invoice_data.Ref;
-              repObj.Status =this.GetStatus(bank_row.Amount,invoice_data.Amount);
-              this.paymentReport.push(repObj);
-            }
+          let repObj: IPaymentReport = {
+            Ref: undefined,
+            AmountPaid: undefined,
+            AmountInvoiced: undefined,
+            Month: undefined,
+            Name: undefined,
+            Room: undefined,
+            Status: undefined,
+            Date:undefined
+          };
+          if (bank_row.Ref === invoice_data.Ref) {
+            repObj.AmountInvoiced = invoice_data.Amount;
+            repObj.AmountPaid = bank_row.Amount;
+            repObj.Month = invoice_data.Month;
+            repObj.Name = invoice_data.Name;
+            repObj.Room = invoice_data.Room;
+            repObj.Ref = invoice_data.Ref;
+            repObj.Date = bank_row.Date;
+            repObj.Status = this.GetStatus(
+              bank_row.Amount,
+              invoice_data.Amount
+            );
+            this.paymentReport.push(repObj);
+          }
         });
       });
     }
@@ -94,5 +104,29 @@ export class UploadPaymentFileComponent implements OnInit {
   GetStatus(AmountPaid, AmountInvoiced): string {
     if (AmountPaid < AmountInvoiced) return "incomplete";
     if (AmountPaid >= AmountInvoiced) return "paid";
+  }
+
+  saveReports() {
+    let savePaymentsList: Array<ISavePayments> =[];
+    this.paymentReport.forEach(data => {
+      let saveReportObj: ISavePayments = {
+        TenantId: 1,
+        RoomId: 1,
+        BuildingId: 1,
+        AmountInvoiced: data.AmountInvoiced,
+        AmountPaid: data.AmountPaid,
+        OutstandingAmount: data.AmountInvoiced - data.AmountPaid,
+        PaymentMonth: new Date().getMonth(),
+        PaymentYear: new Date().getFullYear(),
+        PaymentDate: data.Date,
+        StatusId: 1,
+        PaymentStatus:data.Status
+      };
+      savePaymentsList.push(saveReportObj);
+    });
+
+    this.paymentService.addPayments(savePaymentsList).subscribe(response => {
+      console.log(response);
+    });
   }
 }

@@ -1,6 +1,7 @@
 export interface IPayment {
     Ref: number;
     Amount:number;
+    Date:string;
 }
 export interface IInvoice {
     Ref: number;
@@ -17,6 +18,21 @@ export interface IPaymentReport {
     Name:string;
     Room:string;
     Status:string;
+    Date:string;
+}
+
+export interface ISavePayments{
+TenantId:number;
+RoomId:number;
+BuildingId:number;
+AmountInvoiced:number;
+AmountPaid:number;
+OutstandingAmount:number;
+PaymentMonth:number;
+PaymentYear:number;
+PaymentDate:string;
+StatusId:number;
+PaymentStatus:string;
 }
 
 export const mock_invoice:Array<IInvoice> = [

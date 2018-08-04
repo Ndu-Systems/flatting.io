@@ -20,6 +20,7 @@
               <th></th>
               <th>  Upload Bank Statement</th>
               <th></th>
+              <th></th>
 
             </tr>
           </thead>
@@ -37,7 +38,10 @@
 
               </td>
               <td>
-                <button type="button" class="btn btn-info" (click)="Upload()">Upload</button>
+                <button type="button" class="btn btn-info" (click)="upload()">Upload</button>
+              </td>
+              <td *ngIf="paymentReport.length">
+                <button type="button" class="btn btn-success" (click)="saveReports()">Save Report</button>
               </td>
             </tr>
           </tbody>

@@ -1,5 +1,3 @@
-
-
 import { AgmCoreModule } from '@agm/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,7 +13,7 @@ import { SharedModule } from './shared/shared.module';
 // main layout
 import { NavigationModule } from './main-layout/navigation/navigation.module';
 //Services 
-import { TenantService, BuildingService, AccountService } from './services';
+import { TenantService, BuildingService, AccountService ,PaymentsService} from './services';
 
 
 @NgModule({
@@ -40,7 +38,8 @@ import { TenantService, BuildingService, AccountService } from './services';
   providers: [
     TenantService,
     BuildingService,
-    AccountService
+    AccountService,
+    PaymentsService
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]

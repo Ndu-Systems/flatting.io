@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2018 at 03:39 PM
+-- Generation Time: Aug 04, 2018 at 03:43 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -64,7 +64,7 @@ CREATE TABLE `buildings` (
 --
 
 INSERT INTO `buildings` (`BuildingId`, `BuildingName`, `AddressLine1`, `AddressLine2`, `AddressLine3`, `City`, `PostCode`, `ManagerId`, `StatusId`) VALUES
-(1, 'Eyethu House', 'Maboneng Precint', 'Main street 201', 'Jabavu', 'Johanessburg', '2000', 1, 1);
+(1, 'Eyethu House', 'Maboneng Precint', 'Main street 201', 'Jabavu', 'Johanessburg', '2001', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -115,12 +115,24 @@ CREATE TABLE `payments` (
   `TenantId` int(11) NOT NULL,
   `RoomId` int(11) NOT NULL,
   `BuildingId` int(11) NOT NULL,
-  `AmountDue` decimal(10,0) NOT NULL,
+  `AmountInvoiced` decimal(10,0) NOT NULL,
   `AmountPaid` decimal(10,0) NOT NULL,
   `OutstandingAmount` decimal(10,0) NOT NULL,
-  `PaymentMonth` datetime NOT NULL,
-  `StatusId` int(11) NOT NULL
+  `PaymentMonth` int(2) NOT NULL,
+  `PaymentYear` int(5) NOT NULL,
+  `PaymentDate` varchar(25) DEFAULT NULL,
+  `StatusId` int(11) NOT NULL,
+  `PaymentStatus` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`PaymentId`, `TenantId`, `RoomId`, `BuildingId`, `AmountInvoiced`, `AmountPaid`, `OutstandingAmount`, `PaymentMonth`, `PaymentYear`, `PaymentDate`, `StatusId`, `PaymentStatus`) VALUES
+(10, 1, 1, 1, '3000', '0', '3000', 7, 2018, 'null', 1, 'unpaid'),
+(11, 1, 1, 1, '4200', '2000', '2200', 7, 2018, '1/08/2018', 1, 'incomplete'),
+(12, 1, 1, 1, '2000', '2500', '-500', 7, 2018, '1/08/2018', 1, 'paid');
 
 -- --------------------------------------------------------
 
@@ -144,7 +156,8 @@ INSERT INTO `roles` (`RoleId`, `Description`, `StatusId`) VALUES
 (3, 'General-worker', 1),
 (4, 'Tenant', 1),
 (5, 'Visitor', 1),
-(6, 'Delivery', 1);
+(6, 'Delivery', 1),
+(7, 'Admin', 1);
 
 -- --------------------------------------------------------
 
@@ -223,7 +236,7 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`StaffId`, `StaffFirstName`, `StaffSurname`, `StaffEmail`, `ContactNumber`, `AddressLine1`, `AddressLine2`, `AddressLine3`, `City`, `PostCode`, `RoleId`, `ReportingToId`, `StatusId`, `BuildingId`) VALUES
-(1, 'John', 'Doe', 'john@eyethuhouse.co.za', '085505084', 'Unit 56 Soweto', 'Mbali Street', NULL, 'Johanessburg', '3002', 1, 2, 1, 1),
+(1, 'John', 'Doe', 'admin@mail.com', '085505084', 'Unit 56 Soweto', 'Mbali Street', NULL, 'Johanessburg', '3002', 7, 2, 1, 1),
 (2, 'King', 'Nkosi', 'king@eyethuhouse.co.za', '08425252850', 'Unit 70 Midrand', 'Flower Street', NULL, 'Johanessburg', '3002', 2, 1, 1, 1);
 
 -- --------------------------------------------------------
@@ -293,6 +306,13 @@ CREATE TABLE `users` (
   `Password` varchar(225) NOT NULL,
   `StatusId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`UserId`, `Email`, `Password`, `StatusId`) VALUES
+(1, 'admin@mail.com', 'pass', 1);
 
 --
 -- Indexes for dumped tables
@@ -402,13 +422,13 @@ ALTER TABLE `maintenance`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `PaymentId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PaymentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `RoleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `RoleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -444,7 +464,7 @@ ALTER TABLE `tenant`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
