@@ -5,6 +5,8 @@ import * as XLSX from "ts-xlsx";
 import { IPayment, IInvoice, IPaymentReport } from "../models/Payment";
 import { PaymentsService } from "../../../../services";
 import { getLocaleDateTimeFormat } from "@angular/common";
+import { Message } from 'primeng/api';
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-upload-payment-file",
@@ -15,10 +17,19 @@ export class UploadPaymentFileComponent implements OnInit {
   data: Array<IPayment> = [];
   paymentReport: Array<IPaymentReport> = [];
   invoiceData: Array<IInvoice> = mock_invoice;
-  constructor(private paymentService: PaymentsService) {}
+  msgs: Message[] = [];
 
-  ngOnInit() {}
+  constructor(private paymentService: PaymentsService, private router: Router) { }
 
+  ngOnInit() { }
+  showSuccess(msg) {
+    this.msgs = [];
+    this.msgs.push({ severity: 'success', summary: 'Success Message', detail: `${msg}` +' Report(s) saved successfully' });
+  }
+  showError(msg) {
+    this.msgs = [];
+    this.msgs.push({ severity: 'warn', summary: 'Error Message', detail: `${msg}` });
+  }
   arrayBuffer: any;
   file: File;
   incomingfile(event) {
@@ -44,7 +55,7 @@ export class UploadPaymentFileComponent implements OnInit {
   }
   processData() {
     this.paymentReport = [];
-    console.log("this.data",this.data)
+    console.log("this.data", this.data)
     if (this.data) {
       // unpaid
       this.invoiceData.forEach(x => {
@@ -80,7 +91,7 @@ export class UploadPaymentFileComponent implements OnInit {
             Name: undefined,
             Room: undefined,
             Status: undefined,
-            Date:undefined
+            Date: undefined
           };
           if (bank_row.Ref === invoice_data.Ref) {
             repObj.AmountInvoiced = invoice_data.Amount;
@@ -107,7 +118,7 @@ export class UploadPaymentFileComponent implements OnInit {
   }
 
   saveReports() {
-    let savePaymentsList: Array<ISavePayments> =[];
+    let savePaymentsList: Array<ISavePayments> = [];
     this.paymentReport.forEach(data => {
       let saveReportObj: ISavePayments = {
         TenantId: 1,
@@ -120,13 +131,22 @@ export class UploadPaymentFileComponent implements OnInit {
         PaymentYear: new Date().getFullYear(),
         PaymentDate: data.Date,
         StatusId: 1,
-        PaymentStatus:data.Status
+        PaymentStatus: data.Status
       };
       savePaymentsList.push(saveReportObj);
     });
 
+
     this.paymentService.addPayments(savePaymentsList).subscribe(response => {
-      console.log(response);
+      if (!isNaN(response)) {
+        this.showSuccess(response);
+        setTimeout(() => {
+          this.router.navigate(['/dashboard/']);
+        }, 2000);
+      }
+      else{
+        this.showError(response);
+      }
     });
   }
 }

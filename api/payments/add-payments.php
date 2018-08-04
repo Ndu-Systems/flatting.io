@@ -7,6 +7,7 @@ $data = json_decode(file_get_contents("php://input"));
 
 if (isset($data) ){  
     $payments= $data;
+    $count = 0;
 foreach($payments as $payment) {
     $result = $conn->prepare("INSERT INTO payments(TenantId, RoomId, BuildingId, AmountInvoiced, AmountPaid, OutstandingAmount, PaymentMonth, PaymentYear, PaymentDate, StatusId,PaymentStatus) VALUES 
     (?,?,?,?,?,?,?,?,?,?,?)");
@@ -15,13 +16,14 @@ if($result->execute(array(
     $payment->TenantId,$payment->RoomId,$payment->BuildingId,$payment->AmountInvoiced,$payment->AmountPaid,
     $payment->OutstandingAmount,$payment->PaymentMonth,$payment->PaymentYear,$payment->PaymentDate
     ,$payment->StatusId,$payment->PaymentStatus
-))){			
-    $done =true;
-}else{
+))){	
+    	$count = $count +1;	
+}
+else{
 	echo json_encode("An error has occurred. please contact your system administrator.");
 }
 }
-
+echo json_decode($count);
 
 // }else{
 	
