@@ -40,7 +40,7 @@ export class UploadPaymentFileComponent implements OnInit {
     fileReader.readAsArrayBuffer(this.file);
   }
   processData() {
-  
+  this.paymentReport=[];
     if (this.data) {
       // unpaid
       this.invoiceData.forEach(x => {

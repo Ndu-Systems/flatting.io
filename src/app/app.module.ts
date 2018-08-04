@@ -11,7 +11,6 @@ import { AppRoutes } from './app.routes.service';
 import { HttpClientModule } from "@angular/common/http";
 import { ViewsModule } from './views/views.module';
 import { SharedModule } from './shared/shared.module';
-import { ErrorModule } from './views/errors/error.module';
 
 // main layout
 import { NavigationModule } from './main-layout/navigation/navigation.module';
@@ -35,7 +34,6 @@ import { TenantService, BuildingService, AccountService } from './services';
     RouterModule,
     FormsModule,
     ViewsModule,
-    ErrorModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
