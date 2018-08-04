@@ -20,9 +20,9 @@ const routes: Route[] = [
     ]
   },
   {
-    path: 'dashboards', children:
+    path: 'dashboard', children:
       [
-        { path: 'v1', component: Dashboard1Component, canActivate: [AuthGuard] },
+        { path: '', component: Dashboard1Component, canActivate: [AuthGuard] },
       ]
   },
   {

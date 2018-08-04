@@ -1,3 +1,4 @@
+import { AdminDashboardService } from './../../../services';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserDataService } from '../../../shared/services';
@@ -9,7 +10,7 @@ import { UserDataService } from '../../../shared/services';
 })
 export class Dashboard1Component implements OnInit {
   data: any;  
-  constructor(private userDataService : UserDataService) {
+  constructor(private userDataService : UserDataService,private adminDashboardService: AdminDashboardService) {
     this.data = {
         labels: ['Paid','Un-paid','Partial'],
         datasets: [
@@ -27,6 +28,11 @@ export class Dashboard1Component implements OnInit {
                 ]
             }]    
         };
+
+        this.adminDashboardService.getPayments().subscribe(res=>{
+            res;
+        })
+        
 }
   ngOnInit() { 
   }

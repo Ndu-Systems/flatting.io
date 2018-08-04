@@ -17,7 +17,7 @@ export class AuthenticationService {
   loginUser(user: any) {
     if (user.Email !== '') {
       this.loggedIn.next(true);
-      this.router.navigate(["/dashboards/v1"]);
+      this.router.navigate(["/dashboard"]);
     }
   }
 
