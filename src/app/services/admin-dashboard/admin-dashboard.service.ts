@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { API_URL } from '../../shared/config';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
+import { ISavePayments } from '../../views/payments/uplaod-payment-file/models/Payment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,12 @@ export class AdminDashboardService {
     return this.httpClient.post(`${this.url}/tenant/update-tenant.php`, data);
   }
 
-  getPayments(): Observable<any> {
-    return this.httpClient.get(`${this.url}/payments/get-payments.php`);
+  getPayments(): Observable<Array<ISavePayments>> {
+    return this.httpClient.get<Array<ISavePayments>>(`${this.url}/payments/get-payments.php`);
+  }
+
+  getCounts(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.url}/admin/get-counts.php`);
   }
 
 }

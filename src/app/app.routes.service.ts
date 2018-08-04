@@ -44,7 +44,7 @@ const routes: Route[] = [
       ]
   },
   {
-    path: 'payments', children:
+    path: 'process-payments', children:
       [
         { path: '', component: UploadPaymentFileComponent, canActivate: [AuthGuard] }
       ]

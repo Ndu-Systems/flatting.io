@@ -12,6 +12,7 @@ import { TenantPipePipe, BuildingPipePipe } from './pipes';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PrimeNg } from './primeng';
 import { AuthenticationService, AuthGuard } from './authantication';
+import { CountsPipe } from '../pipes/counts/counts.pipe';
  
 
 @NgModule({
@@ -28,7 +29,7 @@ import { AuthenticationService, AuthGuard } from './authantication';
     PanelComponent,
     ModalComponent,
     TenantPipePipe,
-    BuildingPipePipe
+    BuildingPipePipe,CountsPipe
   ],
   exports: [
     MDBBootstrapModule,
@@ -38,7 +39,7 @@ import { AuthenticationService, AuthGuard } from './authantication';
     PanelComponent,
     ModalComponent,
     TenantPipePipe, 
-    BuildingPipePipe,  
+    BuildingPipePipe,CountsPipe,  
     NgxPaginationModule,
     ... PrimeNg    
   ],

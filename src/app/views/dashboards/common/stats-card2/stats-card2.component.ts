@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ISavePayments } from '../../../payments/uplaod-payment-file/models/Payment';
 
 @Component({
   selector: 'app-stats-card2',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./stats-card2.component.scss']
 })
 export class StatsCard2Component implements OnInit {
-
-  constructor() { }
+  @Input() payments: Array<ISavePayments>;
+  incomplete:number=0;
+  constructor() {
+  
+   }
 
   ngOnInit() {
   }
