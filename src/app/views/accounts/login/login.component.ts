@@ -12,8 +12,8 @@ import { AuthenticationService } from '../../../shared/authantication';
 })
 export class LoginComponent implements OnInit {
   cardForm: FormGroup
-  Email: any
-  Password: any
+  Email: any ="admin@mail.com"
+  Password: any = "password"
   msgs: Message[] = []
 
   constructor(
