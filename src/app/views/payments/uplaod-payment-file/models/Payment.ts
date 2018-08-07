@@ -37,21 +37,21 @@ PaymentStatus:string;
 
 export const mock_invoice:Array<IInvoice> = [
     {
-        Ref:251,
+        Ref:2020,
         Amount:2000,
         Month:'July',
         Name:'Ndumiso',
         Room:'G36'
     },
     {
-        Ref:123,
+        Ref:2019,
         Amount:4200,
         Month:'July',
         Name:'Themba',
         Room:'G37'
     },
     {
-        Ref:222,
+        Ref:2018,
         Amount:3000,
         Month:'July',
         Name:'Bahluphile',

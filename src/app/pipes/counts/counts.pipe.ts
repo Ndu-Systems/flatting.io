@@ -7,7 +7,6 @@ import { ISavePayments } from '../../views/payments/uplaod-payment-file/models/P
 export class CountsPipe implements PipeTransform {
 
   transform(value: ISavePayments[], key:string): number {
-    debugger;
     return value.filter(x=>x.PaymentStatus===key).length;
   }
 

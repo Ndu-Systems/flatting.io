@@ -14,4 +14,8 @@ export class PaymentsService {
   addPayments(data: Array<ISavePayments>): Observable<any> {
     return this.httpClient.post(`${this.url}/payments/add-payments.php`, data);
   }
+
+  getPayment(data:any): Observable<any>{
+    return this.httpClient.post(`${this.url}/payments/get-payment.php`, data);
+  }
 }

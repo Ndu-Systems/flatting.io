@@ -10,7 +10,7 @@ export class SelectService {
   url: string = API_URL;
     constructor(private http:HttpClient) { }
     select(table):Observable<any>{
-    return this.http.get<any>(`${this.url}/select.php?table=${table}`);
+      return this.http.get<any>(`${this.url}/select.php?table=${table}`);
     }
 
 }

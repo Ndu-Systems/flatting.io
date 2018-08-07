@@ -7,6 +7,7 @@ import { PaymentsService } from "../../../../services";
 import { getLocaleDateTimeFormat } from "@angular/common";
 import { Message } from 'primeng/api';
 import { Router } from "@angular/router";
+import { SelectService } from "../../../../shared/services";
 
 @Component({
   selector: "app-upload-payment-file",
@@ -19,7 +20,9 @@ export class UploadPaymentFileComponent implements OnInit {
   invoiceData: Array<IInvoice> = mock_invoice;
   msgs: Message[] = [];
 
-  constructor(private paymentService: PaymentsService, private router: Router) { }
+  constructor(private paymentService: PaymentsService,
+     private router: Router
+    ) { }
 
   ngOnInit() { }
   showSuccess(msg) {
@@ -53,6 +56,7 @@ export class UploadPaymentFileComponent implements OnInit {
     };
     fileReader.readAsArrayBuffer(this.file);
   }
+
   processData() {
     this.paymentReport = [];
     console.log("this.data", this.data)
@@ -93,6 +97,9 @@ export class UploadPaymentFileComponent implements OnInit {
             Status: undefined,
             Date: undefined
           };
+          //Update Payments          
+          this.updatePayment(bank_row.Ref, bank_row);
+          //New Bank Files
           if (bank_row.Ref === invoice_data.Ref) {
             repObj.AmountInvoiced = invoice_data.Amount;
             repObj.AmountPaid = bank_row.Amount;
@@ -148,5 +155,21 @@ export class UploadPaymentFileComponent implements OnInit {
         this.showError(response);
       }
     });
+  }
+
+  paymentToUpdate : ISavePayments
+  //Boolean update payment
+  updatePayment(referenceNumber: number, paymentData: IPayment) : boolean { 
+    debugger       
+    let data = {
+      PaymentMonth : new Date().getMonth(),
+      ReferenceNumber : referenceNumber
+    }
+    this.paymentService.getPayment(data).subscribe(response => {
+      if(response){
+        alert(response.ReferenceNumber)
+      }
+    });
+    return true;
   }
 }

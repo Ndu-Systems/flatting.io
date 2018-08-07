@@ -56,7 +56,7 @@
                 </li>
             </ul>
             <ul class="navbar-nav nav-flex-icons">
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="user$ | async as user">
                     Hello ! {{user.username}}
                 </li>
             </ul>

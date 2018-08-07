@@ -14,7 +14,7 @@ export class NavigationComponent implements OnInit {
   @ViewChild('sidenav') sidenav: ElementRef;
   isLoggedIn$: Observable<boolean>; 
   clicked: boolean;
-  user : any = JSON.parse(localStorage.getItem('currentUser'));
+  user$ : any = JSON.parse(localStorage.getItem('currentUser'));
   constructor(
     private authenticationService: AuthenticationService
   ) {
