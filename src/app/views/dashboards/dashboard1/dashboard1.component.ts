@@ -34,13 +34,13 @@ getPayments(){
                 {
                     data: [unpaid,paid, incomplete],
                     backgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
+                        "#ff5252",
+                        "#2ecc71",
+                        "#f39c12"
                     ],
                     hoverBackgroundColor: [
                         "#FF6384",
-                        "#36A2EB",
+                        "#27ae60",
                         "#FFCE56"
                     ]
                 }]    
