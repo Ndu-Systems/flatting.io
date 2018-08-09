@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2018 at 03:43 PM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.1
+-- Generation Time: Aug 09, 2018 at 11:15 AM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -64,7 +64,8 @@ CREATE TABLE `buildings` (
 --
 
 INSERT INTO `buildings` (`BuildingId`, `BuildingName`, `AddressLine1`, `AddressLine2`, `AddressLine3`, `City`, `PostCode`, `ManagerId`, `StatusId`) VALUES
-(1, 'Eyethu House', 'Maboneng Precint', 'Main street 201', 'Jabavu', 'Johanessburg', '2001', 1, 1);
+(1, 'Eyethu House', 'Maboneng Precint', 'Main street 201', 'Jabavu', 'Johanessburg', '2001', 1, 1),
+(2, 'Brentwood ', '35 China Cres, Cosmo City', 'Roodepoort, 2188', 'Roodepoort, 2188', 'Roodepoort', '2188', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -115,6 +116,7 @@ CREATE TABLE `payments` (
   `TenantId` int(11) NOT NULL,
   `RoomId` int(11) NOT NULL,
   `BuildingId` int(11) NOT NULL,
+  `ReferenceNumber` int(11) NOT NULL,
   `AmountInvoiced` decimal(10,0) NOT NULL,
   `AmountPaid` decimal(10,0) NOT NULL,
   `OutstandingAmount` decimal(10,0) NOT NULL,
@@ -129,10 +131,10 @@ CREATE TABLE `payments` (
 -- Dumping data for table `payments`
 --
 
-INSERT INTO `payments` (`PaymentId`, `TenantId`, `RoomId`, `BuildingId`, `AmountInvoiced`, `AmountPaid`, `OutstandingAmount`, `PaymentMonth`, `PaymentYear`, `PaymentDate`, `StatusId`, `PaymentStatus`) VALUES
-(10, 1, 1, 1, '3000', '0', '3000', 7, 2018, 'null', 1, 'unpaid'),
-(11, 1, 1, 1, '4200', '2000', '2200', 7, 2018, '1/08/2018', 1, 'incomplete'),
-(12, 1, 1, 1, '2000', '2500', '-500', 7, 2018, '1/08/2018', 1, 'paid');
+INSERT INTO `payments` (`PaymentId`, `TenantId`, `RoomId`, `BuildingId`, `ReferenceNumber`, `AmountInvoiced`, `AmountPaid`, `OutstandingAmount`, `PaymentMonth`, `PaymentYear`, `PaymentDate`, `StatusId`, `PaymentStatus`) VALUES
+(1, 1, 1, 1, 2020, '2000', '2000', '0', 7, 2018, '1/08/2018', 1, 'paid'),
+(2, 1, 1, 1, 2019, '4200', '4200', '0', 7, 2018, '25/08/2018', 1, 'paid'),
+(3, 1, 1, 1, 2018, '3000', '3000', '0', 7, 2018, '27/08/2018', 1, 'paid');
 
 -- --------------------------------------------------------
 
@@ -291,8 +293,8 @@ CREATE TABLE `tenant` (
 
 INSERT INTO `tenant` (`TenantId`, `ReferenceNumber`, `FirstName`, `Surname`, `Email`, `ContactNumber`, `NOKName`, `NOKNumber`, `WorkAddress`, `WorkTelephone`, `WorkName`, `StatusId`) VALUES
 (1, '2018', 'Freedom', 'Khanyile', 'freedom@mail.com', '0746958064', 'Sabelo Ntombela', '0846958064', '192 Bram Fischer Drive, Randburg 2194', '0112709000', 'Innovation Group', 1),
-(2, '2018', 'Ndumiso', 'Mthembu', 'ndumiso@mail.com', '0745006854', 'Siyabonga Nyawo', '0846958064', 'Killarney, Rosebank 2100', '0112709000', 'BBD Software Group', 1),
-(3, '2018', 'Ntuthuko', 'Smith', 'mrnnmthembu@gmail.com', '0245484515', 'Mdu', '028857846545', 'G36 Eyethu House 270 Marshall Street', '01454545', 'BBD', 2);
+(2, '2019', 'Ndumiso', 'Mthembu', 'ndumiso@mail.com', '0745006854', 'Siyabonga Nyawo', '0846958064', 'Killarney, Rosebank 2100', '0112709000', 'BBD Software Group', 1),
+(3, '2020', 'Ntuthuko', 'Smith', 'mrnnmthembu@gmail.com', '0245484515', 'Mdu', '028857846545', 'G36 Eyethu House 270 Marshall Street', '01454545', 'BBD', 1);
 
 -- --------------------------------------------------------
 
@@ -346,7 +348,9 @@ ALTER TABLE `maintenance`
 -- Indexes for table `payments`
 --
 ALTER TABLE `payments`
-  ADD PRIMARY KEY (`PaymentId`);
+  ADD PRIMARY KEY (`PaymentId`),
+  ADD KEY `StatusId` (`StatusId`),
+  ADD KEY `StatusId_2` (`StatusId`);
 
 --
 -- Indexes for table `roles`
@@ -404,7 +408,7 @@ ALTER TABLE `announcements`
 -- AUTO_INCREMENT for table `buildings`
 --
 ALTER TABLE `buildings`
-  MODIFY `BuildingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `BuildingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `logs`
@@ -422,7 +426,7 @@ ALTER TABLE `maintenance`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `PaymentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `PaymentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roles`
