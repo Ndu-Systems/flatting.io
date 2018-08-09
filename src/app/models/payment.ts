@@ -4,19 +4,22 @@ export interface IPayment {
     Date:string;
 }
 export interface IInvoice {
-    Ref: number;
-    Amount:number;
-    Month:string;
-    Name:string;
-    Room:string;
+    InvoiceId: number;
+    ReferenceNumber: number;
+    Amount: number;
+    Month: number;
+    Name: string;
+    RoomId: number;
+    StatusId: number;
+    
 }
 export interface IPaymentReport {
     Ref: number;
     AmountPaid:number;
     AmountInvoiced:number;
-    Month:string;
+    Month:number;
     Name:string;
-    Room:string;
+    Room:number;
     Status:string;
     Date:string;
 }
@@ -35,29 +38,4 @@ StatusId:number;
 PaymentStatus:string;
 ReferenceNumber:number;
 }
-
-export const mock_invoice:Array<IInvoice> = [
-    {
-        Ref:2020,
-        Amount:2000,
-        Month:'July',
-        Name:'Ndumiso',
-        Room:'G36'
-    },
-    {
-        Ref:2019,
-        Amount:4200,
-        Month:'July',
-        Name:'Themba',
-        Room:'G37'
-    },
-    {
-        Ref:2018,
-        Amount:3000,
-        Month:'July',
-        Name:'Bahluphile',
-        Room:'202'
-    }
-    
-];
-
+ 

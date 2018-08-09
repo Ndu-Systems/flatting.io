@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2018 at 04:23 PM
+-- Generation Time: Aug 09, 2018 at 07:55 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -70,6 +70,32 @@ INSERT INTO `buildings` (`BuildingId`, `BuildingName`, `AddressLine1`, `AddressL
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `invoice`
+--
+
+CREATE TABLE `invoice` (
+  `InvoiceId` int(11) NOT NULL,
+  `ReferenceNumber` int(11) NOT NULL,
+  `Amount` decimal(10,0) NOT NULL,
+  `Month` int(11) NOT NULL,
+  `Name` varchar(225) NOT NULL,
+  `RoomId` int(11) NOT NULL,
+  `StatusId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `invoice`
+--
+
+INSERT INTO `invoice` (`InvoiceId`, `ReferenceNumber`, `Amount`, `Month`, `Name`, `RoomId`, `StatusId`) VALUES
+(1, 2019, '5000', 7, 'Ndumiso Mthembu', 2, 2),
+(2, 2018, '2500', 7, 'Free ', 3, 3),
+(3, 2017, '9500', 7, 'Betty ', 2, 3),
+(4, 2016, '2500', 7, 'Ronda ', 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `logs`
 --
 
@@ -132,9 +158,22 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`PaymentId`, `TenantId`, `RoomId`, `BuildingId`, `ReferenceNumber`, `AmountInvoiced`, `AmountPaid`, `OutstandingAmount`, `PaymentMonth`, `PaymentYear`, `PaymentDate`, `StatusId`, `PaymentStatus`) VALUES
-(1, 1, 1, 1, 2020, '2000', '2000', '0', 7, 2018, '1/08/2018', 1, 'paid'),
-(2, 2, 2, 1, 2019, '4200', '4200', '0', 7, 2018, '25/08/2018', 1, 'paid'),
-(3, 3, 1, 1, 2018, '3000', '3000', '0', 7, 2018, '27/08/2018', 1, 'paid');
+(1, 1, 1, 1, 2016, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
+(2, 1, 1, 1, 2017, '9500', '14000', '-4500', 7, 2018, '27/08/2018', 1, 'incomplete'),
+(3, 1, 1, 1, 2019, '5000', '5000', '0', 7, 2018, '1/08/2018', 1, 'paid'),
+(4, 1, 1, 1, 2018, '2500', '3000', '-500', 7, 2018, '7/08/2018', 1, 'incomplete'),
+(5, 1, 1, 1, 2018, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
+(6, 1, 1, 1, 2016, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
+(7, 1, 1, 1, 2017, '9500', '10000', '-500', 7, 2018, '1/08/2018', 1, 'incomplete'),
+(8, 1, 1, 1, 2016, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
+(9, 1, 1, 1, 2017, '9500', '4000', '5500', 7, 2018, '1/08/2018', 1, 'incomplete'),
+(10, 1, 1, 1, 2018, '2500', '3000', '-500', 7, 2018, '7/08/2018', 1, 'incomplete'),
+(11, 1, 1, 1, 2016, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
+(12, 1, 1, 1, 2017, '9500', '2000', '7500', 7, 2018, '1/08/2018', 1, 'incomplete'),
+(13, 1, 1, 1, 2018, '2500', '3000', '-500', 7, 2018, '7/08/2018', 1, 'incomplete'),
+(14, 1, 1, 1, 2016, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
+(15, 1, 1, 1, 2017, '9500', '2000', '7500', 7, 2018, '1/08/2018', 1, 'incomplete'),
+(16, 1, 1, 1, 2018, '2500', '1500', '1000', 7, 2018, '7/08/2018', 1, 'incomplete');
 
 -- --------------------------------------------------------
 
@@ -296,9 +335,10 @@ CREATE TABLE `tenant` (
 INSERT INTO `tenant` (`TenantId`, `ReferenceNumber`, `FirstName`, `Surname`, `Email`, `ContactNumber`, `NOKName`, `NOKNumber`, `WorkAddress`, `WorkTelephone`, `WorkName`, `StatusId`) VALUES
 (1, '2018', 'Freedom', 'Khanyile', 'freedom@mail.com', '0746958064', 'Sabelo Ntombela', '0846958064', '192 Bram Fischer Drive, Randburg 2194', '0112709000', 'Innovation Group', 1),
 (2, '2019', 'Ndumiso', 'Mthembu', 'ndumiso@mail.com', '0745006854', 'Siyabonga Nyawo', '0846958064', 'Killarney, Rosebank 2100', '0112709000', 'BBD Software Group', 1),
-(3, '2020', 'Ntuthuko', 'Smith', 'mrnnmthembu@gmail.com', '0245484515', 'Mdu', '028857846545', 'G36 Eyethu House 270 Marshall Street', '01454545', 'BBD', 1),
 (4, '2017', 'Betty', 'Hlangabeza', 'bhlanga@mail.com', '0744552564', 'Wendy', '0745856642', 'Braamfontein ', '0112545888', 'Alexander Forbes', 1),
-(5, '2016', 'Ronda', 'Smith', 'rsmith@mail.com', '0744552564', 'Wendy', '0745856642', 'Green Stone ', '0112545888', 'Liberty', 1);
+(5, '2016', 'Ronda', 'Smith', 'rsmith@mail.com', '0744552564', 'Wendy', '0745856642', 'Green Stone ', '0112545888', 'Liberty', 1),
+(6, '2015', 'king', 'kau', 'king.kau@ndu-systems.net', '011754685', 'Freedom Khanyile', '0745658789', 'Braamfischer Drive', '0112709000', 'Innovation Group', 1),
+(7, '2014', 'Nomzamo', 'Mbatha', 'mbathanom@mail.com', '0745652058', 'Khaya Mthethwa', '071542468', 'North World', '0712445134', 'DStv Live', 1);
 
 -- --------------------------------------------------------
 
@@ -335,6 +375,12 @@ ALTER TABLE `announcements`
 --
 ALTER TABLE `buildings`
   ADD PRIMARY KEY (`BuildingId`);
+
+--
+-- Indexes for table `invoice`
+--
+ALTER TABLE `invoice`
+  ADD PRIMARY KEY (`InvoiceId`);
 
 --
 -- Indexes for table `logs`
@@ -415,6 +461,12 @@ ALTER TABLE `buildings`
   MODIFY `BuildingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `invoice`
+--
+ALTER TABLE `invoice`
+  MODIFY `InvoiceId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
@@ -430,7 +482,7 @@ ALTER TABLE `maintenance`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `PaymentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `PaymentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -466,7 +518,7 @@ ALTER TABLE `statuses`
 -- AUTO_INCREMENT for table `tenant`
 --
 ALTER TABLE `tenant`
-  MODIFY `TenantId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `TenantId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`

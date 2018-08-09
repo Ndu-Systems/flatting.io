@@ -1,3 +1,4 @@
+import { InvoiceService } from './../../../../services/invoices/invoice.service';
 import { Subscription } from "rxjs";
 import { Component, OnInit } from "@angular/core";
 import * as XLSX from "ts-xlsx";
@@ -5,8 +6,9 @@ import { PaymentsService } from "../../../../services";
 import { getLocaleDateTimeFormat } from "@angular/common";
 import { Message } from 'primeng/api';
 import { Router } from "@angular/router";
+import { IPayment, IPaymentReport, IInvoice, ISavePayments } from "../../../../models/Payment";
 import { SelectService } from "../../../../shared/services";
-import { IPayment, IPaymentReport, mock_invoice, IInvoice, ISavePayments } from "../../../../models/Payment";
+import { PAID, INCOMPLETE } from "../../../../shared/enum";
 
 @Component({
   selector: "app-upload-payment-file",
@@ -16,14 +18,20 @@ import { IPayment, IPaymentReport, mock_invoice, IInvoice, ISavePayments } from 
 export class UploadPaymentFileComponent implements OnInit {
   data: Array<IPayment> = [];
   paymentReport: Array<IPaymentReport> = [];
-  invoiceData: Array<IInvoice> = mock_invoice;
+  invoiceData: Array<IInvoice>;
+  invoicesToUpdate : Array<IInvoice> = [];
   msgs: Message[] = [];
 
   constructor(private paymentService: PaymentsService,
-    private router: Router
+    private router: Router,
+    private selectService: SelectService ,
+    private invoiceService : InvoiceService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.getInvoices();
+    
+   }
   showSuccess(msg) {
     this.msgs = [];
     this.msgs.push({ severity: 'success', summary: 'Success Message', detail: `${msg}` + ' Report(s) saved successfully' });
@@ -55,8 +63,17 @@ export class UploadPaymentFileComponent implements OnInit {
     };
     fileReader.readAsArrayBuffer(this.file);
   }
+  getInvoices(){
+    this.selectService.select(`invoice WHERE StatusId IN (1,3)`)
+    .subscribe(response =>{
+      debugger
+      this.invoiceData = response;
+      console.log("invoices", this.invoiceData);
+    });
+ }
 
   processData() {
+    
     this.paymentReport = [];
     console.log("this.data", this.data)
     if (this.data) {
@@ -64,20 +81,20 @@ export class UploadPaymentFileComponent implements OnInit {
       this.invoiceData.forEach(x => {
         let check: boolean = false;
         this.data.forEach(y => {
-          if (x.Ref === y.Ref) {
+          if (Number(x.ReferenceNumber) === y.Ref) {
             check = true;
           }
         });
         if (!check) {
           let obj: IPaymentReport = {
-            Ref: x.Ref,
+            Ref: x.ReferenceNumber,
             AmountPaid: 0,
             AmountInvoiced: x.Amount,
             Month: x.Month,
             Name: x.Name,
-            Room: x.Room,
+            Room: x.RoomId,
             Status: "unpaid",
-            Date: 'null'
+            Date: '7'
           };
           this.paymentReport.push(obj);
         }
@@ -85,6 +102,7 @@ export class UploadPaymentFileComponent implements OnInit {
 
       //paid
       this.data.forEach(bank_row => {
+        debugger
         this.invoiceData.forEach(invoice_data => {
           let repObj: IPaymentReport = {
             Ref: undefined,
@@ -102,13 +120,13 @@ export class UploadPaymentFileComponent implements OnInit {
           }
           else {
             //New Bank Files
-            if (bank_row.Ref === invoice_data.Ref) {
+            if (bank_row.Ref === Number(invoice_data.ReferenceNumber)) {
               repObj.AmountInvoiced = invoice_data.Amount;
               repObj.AmountPaid = bank_row.Amount;
               repObj.Month = invoice_data.Month;
               repObj.Name = invoice_data.Name;
-              repObj.Room = invoice_data.Room;
-              repObj.Ref = invoice_data.Ref;
+              repObj.Room = invoice_data.RoomId;
+              repObj.Ref = invoice_data.ReferenceNumber;
               repObj.Date = bank_row.Date;
               repObj.Status = this.GetStatus(
                 bank_row.Amount,
@@ -123,8 +141,48 @@ export class UploadPaymentFileComponent implements OnInit {
   }
 
   GetStatus(AmountPaid, AmountInvoiced): string {
-    if (AmountPaid < AmountInvoiced) return "incomplete";
-    if (AmountPaid >= AmountInvoiced) return "paid";
+    if (AmountPaid < AmountInvoiced) return INCOMPLETE;
+    if (AmountPaid >= AmountInvoiced) return PAID;
+  }
+
+  updateInvoices(){
+    this.paymentReport.forEach(payment =>{
+      let invoice : IInvoice;
+      if(payment.Status === PAID){
+        invoice = {          
+          ReferenceNumber : payment.Ref,
+          Amount: payment.AmountInvoiced,
+          Month: payment.Month,
+          Name: payment.Name,
+          RoomId: payment.Room,
+          StatusId: 2,
+          InvoiceId : this.invoiceData.filter(x => x.ReferenceNumber == payment.Ref)[0].InvoiceId
+        }
+      }
+      if(payment.Status == INCOMPLETE){        
+          invoice = {          
+            ReferenceNumber : payment.Ref,
+            Amount: payment.AmountInvoiced,
+            Month: payment.Month,
+            Name: payment.Name,
+            RoomId: payment.Room,
+            StatusId: 3,
+            InvoiceId : this.invoiceData.filter(x => x.ReferenceNumber == payment.Ref)[0].InvoiceId
+          }
+      }
+      if(invoice){
+        this.invoicesToUpdate.push(invoice);
+      }
+    })
+    this.invoiceService.updateInvoice(this.invoicesToUpdate)
+      .subscribe(response => {
+        if(response){
+          setTimeout(() => {
+            this.router.navigate(['/dashboard/']);
+          }, 2000);
+        }
+       
+      });    
   }
 
   saveReports() {
@@ -146,14 +204,14 @@ export class UploadPaymentFileComponent implements OnInit {
       };
       savePaymentsList.push(saveReportObj);
     });
-
+    
 
     this.paymentService.addPayments(savePaymentsList).subscribe(response => {
       if (!isNaN(response)) {
+        
         this.showSuccess(response);
-        setTimeout(() => {
-          this.router.navigate(['/dashboard/']);
-        }, 2000);
+        this.updateInvoices();
+       
       }
       else {
         this.showError(response);
@@ -198,7 +256,7 @@ export class UploadPaymentFileComponent implements OnInit {
       PaymentId: payment.PaymentId
     }
     if(data.OutstandingAmount == 0){
-      data.PaymentStatus = "paid"
+      data.PaymentStatus = PAID
     }
 
     this.paymentService.updatePayment(data)
