@@ -45,8 +45,12 @@
             </tr>
           </tbody>
         </table>
+        <hr class="my-0"> 
+        <div class="col-12 justify-content-center">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
       </div>
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      
     </div>
   </div>
 </div>
