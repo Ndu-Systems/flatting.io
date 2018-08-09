@@ -19,6 +19,8 @@ import { Dashboard1Component } from './dashboards/dashboard1/dashboard1.componen
 import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from './tenants'; 
 import { ListBuildingsComponent, ViewBuildingComponent, EditBuildingComponent } from './buildings';
 import { LoginComponent } from './accounts';
+import { PaymentsComponent } from './payments/payments/payments.component';
+ 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -53,7 +55,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ViewBuildingComponent,
     EditBuildingComponent,
     AddBuildingComponent,
-    LoginComponent
+    LoginComponent,
+    PaymentsComponent
   ],
   exports: [
     FooterComponent,

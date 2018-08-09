@@ -19,11 +19,9 @@ export class PaymentsService {
   getPayment(data:any): Observable<any>{
     return this.httpClient.post(`${this.url}/payments/get-payment.php`, data);
   }
-
   updatePayment(data: any) : Observable<any> {
     return this.httpClient.post(`${this.url}/payments/update-payment.php`, data);
   }
-
   getPaymentDetails(): Observable<Array<IPaymentDetails>>{
     return this.httpClient.get<Array<IPaymentDetails>>(`${this.url}/payments/get-payment-details.php`);
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ISavePayments } from '../../../payments/uplaod-payment-file/models/Payment';
+import { ISavePayments } from '../../../../models/Payment';
 
 @Component({
   selector: 'app-stats-card2',
