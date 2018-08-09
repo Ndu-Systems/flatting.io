@@ -36,7 +36,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of data | filter: search | paginate: { itemsPerPage:  10, currentPage: p }">
+              <tr *ngFor="let item of data | filter: search | paginate: { itemsPerPage:  4, currentPage: p }">
                 <td>{{item.ReferenceNumber}}</td>
                 <td>{{item.RoomNumber}}</td>
                 <td>{{item.FirstName}}</td>
