@@ -12,3 +12,5 @@ export const  WEB_HOST = web;
 export function GetImagePath(imageUrl){
     return `${API_URL}/Article/${imageUrl}`;
 }
+
+

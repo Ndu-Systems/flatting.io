@@ -45,13 +45,11 @@ const routes: Route[] = [
       ]
   },
   {
-    path: 'process-payments', children:
+    path: 'payments', children:
       [
-        { path: '', component: UploadPaymentFileComponent, canActivate: [AuthGuard] }
+        { path: '', component: PaymentsComponent, canActivate: [AuthGuard] },        
+        { path: 'process', component: UploadPaymentFileComponent, canActivate: [AuthGuard] }
       ]
-  },
-  {
-    path: 'payments', component: PaymentsComponent ,canActivate: [AuthGuard]
   }
 ];
 export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes, { useHash: true });
