@@ -9,6 +9,9 @@ import { ISavePayments } from "../../models/Payment";
   providedIn: "root"
 })
 export class PaymentsService {
+  updatePayment(arg0: any): any {
+    throw new Error("Method not implemented.");
+  }
   url = API_URL;
   constructor(private httpClient: HttpClient) {}
 
