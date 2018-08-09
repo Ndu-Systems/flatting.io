@@ -20,13 +20,13 @@ export class UploadPaymentFileComponent implements OnInit {
   msgs: Message[] = [];
 
   constructor(private paymentService: PaymentsService,
-     private router: Router
-    ) { }
+    private router: Router
+  ) { }
 
   ngOnInit() { }
   showSuccess(msg) {
     this.msgs = [];
-    this.msgs.push({ severity: 'success', summary: 'Success Message', detail: `${msg}` +' Report(s) saved successfully' });
+    this.msgs.push({ severity: 'success', summary: 'Success Message', detail: `${msg}` + ' Report(s) saved successfully' });
   }
   showError(msg) {
     this.msgs = [];
@@ -97,21 +97,25 @@ export class UploadPaymentFileComponent implements OnInit {
             Date: undefined
           };
           //Update Payments          
-          this.updatePayment(bank_row.Ref, bank_row);
-          //New Bank Files
-          if (bank_row.Ref === invoice_data.Ref) {
-            repObj.AmountInvoiced = invoice_data.Amount;
-            repObj.AmountPaid = bank_row.Amount;
-            repObj.Month = invoice_data.Month;
-            repObj.Name = invoice_data.Name;
-            repObj.Room = invoice_data.Room;
-            repObj.Ref = invoice_data.Ref;
-            repObj.Date = bank_row.Date;
-            repObj.Status = this.GetStatus(
-              bank_row.Amount,
-              invoice_data.Amount
-            );
-            this.paymentReport.push(repObj);
+          if (this.updatePayment(bank_row.Ref, bank_row)) {
+            return;
+          }
+          else {
+            //New Bank Files
+            if (bank_row.Ref === invoice_data.Ref) {
+              repObj.AmountInvoiced = invoice_data.Amount;
+              repObj.AmountPaid = bank_row.Amount;
+              repObj.Month = invoice_data.Month;
+              repObj.Name = invoice_data.Name;
+              repObj.Room = invoice_data.Room;
+              repObj.Ref = invoice_data.Ref;
+              repObj.Date = bank_row.Date;
+              repObj.Status = this.GetStatus(
+                bank_row.Amount,
+                invoice_data.Amount
+              );
+              this.paymentReport.push(repObj);
+            }
           }
         });
       });
@@ -137,7 +141,8 @@ export class UploadPaymentFileComponent implements OnInit {
         PaymentYear: new Date().getFullYear(),
         PaymentDate: data.Date,
         StatusId: 1,
-        PaymentStatus: data.Status
+        PaymentStatus: data.Status,
+        ReferenceNumber: data.Ref
       };
       savePaymentsList.push(saveReportObj);
     });
@@ -150,25 +155,58 @@ export class UploadPaymentFileComponent implements OnInit {
           this.router.navigate(['/dashboard/']);
         }, 2000);
       }
-      else{
+      else {
         this.showError(response);
       }
     });
   }
 
-  paymentToUpdate : ISavePayments
+  paymentToUpdate: ISavePayments
   //Boolean update payment
-  updatePayment(referenceNumber: number, paymentData: IPayment) : boolean { 
-    debugger       
+  updatePayment(referenceNumber: number, paymentData: IPayment): boolean {   
+    let isUpdated = false;
     let data = {
-      PaymentMonth : new Date().getMonth(),
-      ReferenceNumber : referenceNumber
+      PaymentMonth: new Date().getMonth(),
+      ReferenceNumber: referenceNumber
     }
     this.paymentService.getPayment(data).subscribe(response => {
-      if(response){
-        alert(response.ReferenceNumber)
+      if (response.PaymentId > 0) {
+        debugger
+        if (this.update(response, paymentData)) {
+          isUpdated = true;
+        }
       }
     });
-    return true;
+    return isUpdated;
+  }
+
+  update(payment, paymentData): boolean {
+    let isUpdated = false;
+    let data = {
+      TenantId: payment.TenantId,
+      RoomId: payment.RoomId,
+      BuildingId: payment.BuildingId,
+      ReferenceNumber: payment.ReferenceNumber,
+      AmountInvoiced: payment.AmountInvoiced,
+      AmountPaid: Number(payment.AmountPaid) + paymentData.Amount,
+      OutstandingAmount: Number(payment.OutstandingAmount - paymentData.Amount),
+      PaymentMonth: payment.PaymentMonth,
+      PaymentYear: payment.PaymentYear,
+      PaymentDate: paymentData.Date,
+      StatusId: payment.StatusId,
+      PaymentStatus: payment.PaymentStatus,
+      PaymentId: payment.PaymentId
+    }
+    if(data.OutstandingAmount == 0){
+      data.PaymentStatus = "paid"
+    }
+
+    this.paymentService.updatePayment(data)
+      .subscribe(response => {
+        if (response == 1) {
+          isUpdated = true;
+        }
+      });
+    return isUpdated;
   }
 }

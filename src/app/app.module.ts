@@ -9,7 +9,7 @@ import { AppRoutes } from './app.routes.service';
 import { HttpClientModule } from "@angular/common/http";
 import { ViewsModule } from './views/views.module';
 import { SharedModule } from './shared/shared.module';
-
+ 
 // main layout
 import { NavigationModule } from './main-layout/navigation/navigation.module';
 //Services 
@@ -33,7 +33,9 @@ import { TenantService, BuildingService, AccountService ,PaymentsService,AdminDa
     FormsModule,
     ViewsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    
+    
   ],
   providers: [
     TenantService,

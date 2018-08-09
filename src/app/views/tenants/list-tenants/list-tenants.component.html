@@ -32,7 +32,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of tenants | paginate: { itemsPerPage:  5, currentPage: p }  | tenantpipe:search">
+            <tr *ngFor="let item of tenants| filter: search | paginate: { itemsPerPage:  10, currentPage: p }">
               <th scope="row">1</th>
               <td>{{item.FirstName}} {{item.Surname}}</td>
               <td>{{item.Email}}</td>
@@ -43,8 +43,11 @@
             </tr>
           </tbody>
         </table>
-      </div>
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <hr class="my-0"> 
+        <div class="col-12 justify-content-center">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>      
     </div>
   </div>
 

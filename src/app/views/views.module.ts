@@ -21,6 +21,9 @@ import { ListBuildingsComponent, ViewBuildingComponent, EditBuildingComponent } 
 import { LoginComponent } from './accounts';
 import { PaymentsComponent } from './payments/payments/payments.component';
  
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -34,7 +37,9 @@ import { PaymentsComponent } from './payments/payments/payments.component';
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en#key
       apiKey: ''
     }),
-    CalendarModule.forRoot()
+    CalendarModule.forRoot(),
+    Ng2SearchPipeModule,
+    NgxPaginationModule
   ],
   declarations: [
     FooterComponent,

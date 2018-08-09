@@ -33,6 +33,7 @@ PaymentYear:number;
 PaymentDate:string;
 StatusId:number;
 PaymentStatus:string;
+ReferenceNumber:number;
 }
 
 export const mock_invoice:Array<IInvoice> = [
@@ -56,13 +57,6 @@ export const mock_invoice:Array<IInvoice> = [
         Month:'July',
         Name:'Bahluphile',
         Room:'202'
-    },
-    {
-        Ref:231,
-        Amount:3000,
-        Month:'July',
-        Name:'Smith',
-        Room:'205'
     }
     
 ];
