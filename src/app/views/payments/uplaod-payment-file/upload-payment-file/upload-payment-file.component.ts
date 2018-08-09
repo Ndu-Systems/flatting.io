@@ -1,13 +1,12 @@
 import { Subscription } from "rxjs";
-import { mock_invoice, ISavePayments } from "./../models/Payment";
 import { Component, OnInit } from "@angular/core";
 import * as XLSX from "ts-xlsx";
-import { IPayment, IInvoice, IPaymentReport } from "../models/Payment";
 import { PaymentsService } from "../../../../services";
 import { getLocaleDateTimeFormat } from "@angular/common";
 import { Message } from 'primeng/api';
 import { Router } from "@angular/router";
 import { SelectService } from "../../../../shared/services";
+import { IPayment, IPaymentReport, mock_invoice, IInvoice, ISavePayments } from "../../../../models/Payment";
 
 @Component({
   selector: "app-upload-payment-file",

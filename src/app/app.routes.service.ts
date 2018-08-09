@@ -1,3 +1,4 @@
+import { PaymentsComponent } from './views/payments/payments/payments.component';
 import { AddBuildingComponent } from './views/buildings/add-building/add-building.component';
 import { UploadPaymentFileComponent } from './views/payments/uplaod-payment-file/upload-payment-file/upload-payment-file.component';
 import { ListBuildingsComponent } from './views/buildings/list-buildings/list-buildings.component';
@@ -48,6 +49,9 @@ const routes: Route[] = [
       [
         { path: '', component: UploadPaymentFileComponent, canActivate: [AuthGuard] }
       ]
+  },
+  {
+    path: 'payments', component: PaymentsComponent ,canActivate: [AuthGuard]
   }
 ];
 export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes, { useHash: true });

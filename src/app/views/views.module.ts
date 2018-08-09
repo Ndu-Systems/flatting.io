@@ -19,6 +19,7 @@ import { Dashboard1Component } from './dashboards/dashboard1/dashboard1.componen
 import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from './tenants'; 
 import { ListBuildingsComponent, ViewBuildingComponent, EditBuildingComponent } from './buildings';
 import { LoginComponent } from './accounts';
+import { PaymentsComponent } from './payments/payments/payments.component';
  
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import { LoginComponent } from './accounts';
     ViewBuildingComponent,
     EditBuildingComponent,
     AddBuildingComponent,
-    LoginComponent
+    LoginComponent,
+    PaymentsComponent
   ],
   exports: [
     FooterComponent,

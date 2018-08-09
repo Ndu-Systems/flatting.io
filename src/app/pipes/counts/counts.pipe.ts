@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ISavePayments } from '../../views/payments/uplaod-payment-file/models/Payment';
+import { ISavePayments } from '../../models/Payment';
 
 @Pipe({
   name: 'counts'

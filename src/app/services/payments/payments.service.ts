@@ -1,8 +1,9 @@
+import { IPaymentDetails } from './../../models/payment-details.model';
 import { Injectable } from "@angular/core";
 import { API_URL } from "../../shared/config";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/internal/Observable";
-import {  ISavePayments } from "../../views/payments/uplaod-payment-file/models/Payment";
+import { ISavePayments } from "../../models/Payment";
 
 @Injectable({
   providedIn: "root"
@@ -17,5 +18,8 @@ export class PaymentsService {
 
   getPayment(data:any): Observable<any>{
     return this.httpClient.post(`${this.url}/payments/get-payment.php`, data);
+  }
+  getPaymentDetails(): Observable<Array<IPaymentDetails>>{
+    return this.httpClient.get<Array<IPaymentDetails>>(`${this.url}/payments/get-payment-details.php`);
   }
 }

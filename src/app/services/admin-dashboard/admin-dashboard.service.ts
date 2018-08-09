@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { API_URL } from '../../shared/config';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { ISavePayments } from '../../views/payments/uplaod-payment-file/models/Payment';
+import { ISavePayments } from '../../models/Payment';
 
 @Injectable({
   providedIn: 'root'

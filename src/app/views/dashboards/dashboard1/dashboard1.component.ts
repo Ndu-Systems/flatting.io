@@ -3,7 +3,7 @@ import { AdminDashboardService } from './../../../services';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserDataService } from '../../../shared/services';
-import { ISavePayments } from '../../payments/uplaod-payment-file/models/Payment';
+import { ISavePayments } from '../../../models/Payment';
 
 @Component({
   selector: 'app-dashboard1',
