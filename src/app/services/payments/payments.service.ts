@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import { API_URL } from "../../shared/config";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/internal/Observable";
-import {  ISavePayments } from "../../views/payments/uplaod-payment-file/models/Payment";
+import { ISavePayments, IPaymentDetails } from "../../models";
+ 
 
 @Injectable({
   providedIn: "root"
@@ -21,6 +22,9 @@ export class PaymentsService {
 
   updatePayment(data: any) : Observable<any> {
     return this.httpClient.post(`${this.url}/payments/update-payment.php`, data);
-    //check in
+  }
+
+  getPaymentDetails(): Observable<Array<IPaymentDetails>>{
+    return this.httpClient.get<Array<IPaymentDetails>>(`${this.url}/payments/get-payment-details.php`);
   }
 }
