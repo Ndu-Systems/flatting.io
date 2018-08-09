@@ -19,7 +19,9 @@ import { Dashboard1Component } from './dashboards/dashboard1/dashboard1.componen
 import { ListTenantsComponent, ViewTenantComponent, EditTenantComponent } from './tenants'; 
 import { ListBuildingsComponent, ViewBuildingComponent, EditBuildingComponent } from './buildings';
 import { LoginComponent } from './accounts';
- 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -33,7 +35,9 @@ import { LoginComponent } from './accounts';
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en#key
       apiKey: ''
     }),
-    CalendarModule.forRoot()
+    CalendarModule.forRoot(),
+    Ng2SearchPipeModule,
+    NgxPaginationModule
   ],
   declarations: [
     FooterComponent,

@@ -32,7 +32,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of tenants | paginate: { itemsPerPage:  5, currentPage: p }  | tenantpipe:search">
+            <tr *ngFor="let item of tenants| filter: search | paginate: { itemsPerPage:  5, currentPage: p }">
               <th scope="row">1</th>
               <td>{{item.FirstName}} {{item.Surname}}</td>
               <td>{{item.Email}}</td>
