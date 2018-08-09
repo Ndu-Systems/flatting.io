@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2018 at 11:15 AM
+-- Generation Time: Aug 09, 2018 at 04:23 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -133,8 +133,8 @@ CREATE TABLE `payments` (
 
 INSERT INTO `payments` (`PaymentId`, `TenantId`, `RoomId`, `BuildingId`, `ReferenceNumber`, `AmountInvoiced`, `AmountPaid`, `OutstandingAmount`, `PaymentMonth`, `PaymentYear`, `PaymentDate`, `StatusId`, `PaymentStatus`) VALUES
 (1, 1, 1, 1, 2020, '2000', '2000', '0', 7, 2018, '1/08/2018', 1, 'paid'),
-(2, 1, 1, 1, 2019, '4200', '4200', '0', 7, 2018, '25/08/2018', 1, 'paid'),
-(3, 1, 1, 1, 2018, '3000', '3000', '0', 7, 2018, '27/08/2018', 1, 'paid');
+(2, 2, 2, 1, 2019, '4200', '4200', '0', 7, 2018, '25/08/2018', 1, 'paid'),
+(3, 3, 1, 1, 2018, '3000', '3000', '0', 7, 2018, '27/08/2018', 1, 'paid');
 
 -- --------------------------------------------------------
 
@@ -182,7 +182,9 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`RoomId`, `RoomNumber`, `Floor`, `TenantId`, `RoomTypeId`, `BuildingId`, `StatusId`) VALUES
-(1, 'EH202', '2', 1, 1, 1, 1);
+(1, 'EH202', '2', 1, 1, 1, 1),
+(2, 'EH201', '2', 2, 1, 1, 1),
+(3, 'EH203', '3', 3, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -294,7 +296,9 @@ CREATE TABLE `tenant` (
 INSERT INTO `tenant` (`TenantId`, `ReferenceNumber`, `FirstName`, `Surname`, `Email`, `ContactNumber`, `NOKName`, `NOKNumber`, `WorkAddress`, `WorkTelephone`, `WorkName`, `StatusId`) VALUES
 (1, '2018', 'Freedom', 'Khanyile', 'freedom@mail.com', '0746958064', 'Sabelo Ntombela', '0846958064', '192 Bram Fischer Drive, Randburg 2194', '0112709000', 'Innovation Group', 1),
 (2, '2019', 'Ndumiso', 'Mthembu', 'ndumiso@mail.com', '0745006854', 'Siyabonga Nyawo', '0846958064', 'Killarney, Rosebank 2100', '0112709000', 'BBD Software Group', 1),
-(3, '2020', 'Ntuthuko', 'Smith', 'mrnnmthembu@gmail.com', '0245484515', 'Mdu', '028857846545', 'G36 Eyethu House 270 Marshall Street', '01454545', 'BBD', 1);
+(3, '2020', 'Ntuthuko', 'Smith', 'mrnnmthembu@gmail.com', '0245484515', 'Mdu', '028857846545', 'G36 Eyethu House 270 Marshall Street', '01454545', 'BBD', 1),
+(4, '2017', 'Betty', 'Hlangabeza', 'bhlanga@mail.com', '0744552564', 'Wendy', '0745856642', 'Braamfontein ', '0112545888', 'Alexander Forbes', 1),
+(5, '2016', 'Ronda', 'Smith', 'rsmith@mail.com', '0744552564', 'Wendy', '0745856642', 'Green Stone ', '0112545888', 'Liberty', 1);
 
 -- --------------------------------------------------------
 
@@ -438,7 +442,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `RoomId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `RoomId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roomtypes`
@@ -462,7 +466,7 @@ ALTER TABLE `statuses`
 -- AUTO_INCREMENT for table `tenant`
 --
 ALTER TABLE `tenant`
-  MODIFY `TenantId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `TenantId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
