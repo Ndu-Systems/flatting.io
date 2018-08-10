@@ -1,12 +1,17 @@
-import { InvoiceService } from './../../../../services/invoices/invoice.service';
+import { InvoiceService } from "./../../../../services/invoices/invoice.service";
 import { Subscription } from "rxjs";
 import { Component, OnInit } from "@angular/core";
 import * as XLSX from "ts-xlsx";
 import { PaymentsService } from "../../../../services";
 import { getLocaleDateTimeFormat } from "@angular/common";
-import { Message } from 'primeng/api';
+import { Message } from "primeng/api";
 import { Router } from "@angular/router";
-import { IPayment, IPaymentReport, IInvoice, ISavePayments } from "../../../../models/Payment";
+import {
+  IPayment,
+  IPaymentReport,
+  IInvoice,
+  ISavePayments
+} from "../../../../models/Payment";
 import { SelectService } from "../../../../shared/services";
 import { PAID, INCOMPLETE } from "../../../../shared/enum";
 
@@ -19,26 +24,63 @@ export class UploadPaymentFileComponent implements OnInit {
   data: Array<IPayment> = [];
   paymentReport: Array<IPaymentReport> = [];
   invoiceData: Array<IInvoice>;
-  invoicesToUpdate : Array<IInvoice> = [];
+  invoicesToUpdate: Array<IInvoice> = [];
   msgs: Message[] = [];
+  paymentToUpdate: ISavePayments;
+  months: Array<string> = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  month: string;
+  selectedMonthIndex = 0;
+  existingPayments: Array<ISavePayments>;
 
-  constructor(private paymentService: PaymentsService,
+  constructor(
+    private paymentService: PaymentsService,
     private router: Router,
-    private selectService: SelectService ,
-    private invoiceService : InvoiceService
-  ) { }
-
+    private selectService: SelectService,
+    private invoiceService: InvoiceService
+  ) {}
+  selectMonth() {
+    this.selectedMonthIndex = this.months.indexOf(
+      this.months.filter(x => x === this.month)[0]
+    );
+    console.log(this.selectedMonthIndex);
+    this.selectService
+      .select(`payments WHERE PaymentMonth = ${this.selectedMonthIndex}`)
+      .subscribe(payments => {
+        this.existingPayments = payments;
+        console.log("payments", this.existingPayments);
+      });
+  }
   ngOnInit() {
     this.getInvoices();
-    
-   }
+  }
   showSuccess(msg) {
     this.msgs = [];
-    this.msgs.push({ severity: 'success', summary: 'Success Message', detail: `${msg}` + ' Report(s) saved successfully' });
+    this.msgs.push({
+      severity: "success",
+      summary: "Success Message",
+      detail: `${msg}` + " Report(s) saved successfully"
+    });
   }
   showError(msg) {
     this.msgs = [];
-    this.msgs.push({ severity: 'warn', summary: 'Error Message', detail: `${msg}` });
+    this.msgs.push({
+      severity: "warn",
+      summary: "Error Message",
+      detail: `${msg}`
+    });
   }
   arrayBuffer: any;
   file: File;
@@ -63,19 +105,19 @@ export class UploadPaymentFileComponent implements OnInit {
     };
     fileReader.readAsArrayBuffer(this.file);
   }
-  getInvoices(){
-    this.selectService.select(`invoice WHERE StatusId IN (1,3)`)
-    .subscribe(response =>{
-      debugger
-      this.invoiceData = response;
-      console.log("invoices", this.invoiceData);
-    });
- }
+  getInvoices() {
+    this.selectService
+      .select(`invoice WHERE StatusId IN (1,3)`)
+      .subscribe(response => {
+        debugger;
+        this.invoiceData = response;
+        console.log("invoices", this.invoiceData);
+      });
+  }
 
   processData() {
-    
     this.paymentReport = [];
-    console.log("this.data", this.data)
+    console.log("this.data", this.data);
     if (this.data) {
       // unpaid
       this.invoiceData.forEach(x => {
@@ -94,7 +136,7 @@ export class UploadPaymentFileComponent implements OnInit {
             Name: x.Name,
             Room: x.RoomId,
             Status: "unpaid",
-            Date: '7'
+            Date: "7"
           };
           this.paymentReport.push(obj);
         }
@@ -102,7 +144,7 @@ export class UploadPaymentFileComponent implements OnInit {
 
       //paid
       this.data.forEach(bank_row => {
-        debugger
+        debugger;
         this.invoiceData.forEach(invoice_data => {
           let repObj: IPaymentReport = {
             Ref: undefined,
@@ -114,11 +156,8 @@ export class UploadPaymentFileComponent implements OnInit {
             Status: undefined,
             Date: undefined
           };
-          //Update Payments          
-          if (this.updatePayment(bank_row.Ref, bank_row)) {
-            return;
-          }
-          else {
+          //Update Payments
+      
             //New Bank Files
             if (bank_row.Ref === Number(invoice_data.ReferenceNumber)) {
               repObj.AmountInvoiced = invoice_data.Amount;
@@ -134,7 +173,7 @@ export class UploadPaymentFileComponent implements OnInit {
               );
               this.paymentReport.push(repObj);
             }
-          }
+          
         });
       });
     }
@@ -145,50 +184,55 @@ export class UploadPaymentFileComponent implements OnInit {
     if (AmountPaid >= AmountInvoiced) return PAID;
   }
 
-  updateInvoices(){
-    this.paymentReport.forEach(payment =>{
-      let invoice : IInvoice;
-      if(payment.Status === PAID){
-        invoice = {          
-          ReferenceNumber : payment.Ref,
+  updateInvoices() {
+    this.paymentReport.forEach(payment => {
+      let invoice: IInvoice;
+      if (payment.Status === PAID) {
+        invoice = {
+          ReferenceNumber: payment.Ref,
           Amount: payment.AmountInvoiced,
           Month: payment.Month,
           Name: payment.Name,
           RoomId: payment.Room,
           StatusId: 2,
-          InvoiceId : this.invoiceData.filter(x => x.ReferenceNumber == payment.Ref)[0].InvoiceId
-        }
+          InvoiceId: this.invoiceData.filter(
+            x => x.ReferenceNumber == payment.Ref
+          )[0].InvoiceId
+        };
       }
-      if(payment.Status == INCOMPLETE){        
-          invoice = {          
-            ReferenceNumber : payment.Ref,
-            Amount: payment.AmountInvoiced,
-            Month: payment.Month,
-            Name: payment.Name,
-            RoomId: payment.Room,
-            StatusId: 3,
-            InvoiceId : this.invoiceData.filter(x => x.ReferenceNumber == payment.Ref)[0].InvoiceId
-          }
+      if (payment.Status == INCOMPLETE) {
+        invoice = {
+          ReferenceNumber: payment.Ref,
+          Amount: payment.AmountInvoiced,
+          Month: payment.Month,
+          Name: payment.Name,
+          RoomId: payment.Room,
+          StatusId: 3,
+          InvoiceId: this.invoiceData.filter(
+            x => x.ReferenceNumber == payment.Ref
+          )[0].InvoiceId
+        };
       }
-      if(invoice){
+      if (invoice) {
         this.invoicesToUpdate.push(invoice);
       }
-    })
-    this.invoiceService.updateInvoice(this.invoicesToUpdate)
+    });
+    this.invoiceService
+      .updateInvoice(this.invoicesToUpdate)
       .subscribe(response => {
-        if(response){
+        if (response) {
           setTimeout(() => {
-            this.router.navigate(['/dashboard/']);
+            this.router.navigate(["/dashboard/"]);
           }, 2000);
         }
-       
-      });    
+      });
   }
 
   saveReports() {
     let savePaymentsList: Array<ISavePayments> = [];
     this.paymentReport.forEach(data => {
       let saveReportObj: ISavePayments = {
+        PaymentId:0,
         TenantId: 1,
         RoomId: 1,
         BuildingId: 1,
@@ -204,67 +248,93 @@ export class UploadPaymentFileComponent implements OnInit {
       };
       savePaymentsList.push(saveReportObj);
     });
-    
-
+    if (this.existingPayments.length > 0) {
+      this.updatePaymentsBeforeSave(this.existingPayments, savePaymentsList);
+      return;
+    }
     this.paymentService.addPayments(savePaymentsList).subscribe(response => {
       if (!isNaN(response)) {
-        
         this.showSuccess(response);
         this.updateInvoices();
-       
-      }
-      else {
+      } else {
         this.showError(response);
       }
     });
   }
 
-  paymentToUpdate: ISavePayments
-  //Boolean update payment
-  updatePayment(referenceNumber: number, paymentData: IPayment): boolean {   
-    let isUpdated = false;
-    let data = {
-      PaymentMonth: new Date().getMonth(),
-      ReferenceNumber: referenceNumber
-    }
-    this.paymentService.getPayment(data).subscribe(response => {
-      if (response.PaymentId > 0) {
-        debugger
-        if (this.update(response, paymentData)) {
-          isUpdated = true;
-        }
+  updatePaymentsBeforeSave(existingPayments:Array<ISavePayments>, paymentsToSave:Array<ISavePayments>){
+    debugger;
+    let updatedPayments:Array<ISavePayments> = [];
+    let newPayments:Array<ISavePayments> = [];
+    paymentsToSave.forEach(paymentToSave=>{
+      let existingPayment:ISavePayments = existingPayments.filter(x=>x.ReferenceNumber===paymentToSave.ReferenceNumber)[0];
+      if(existingPayment){
+        paymentToSave.PaymentId = Number(existingPayment.PaymentId);
+        updatedPayments.push(paymentToSave);
+      }else{
+        newPayments.push(paymentToSave);
       }
-    });
-    return isUpdated;
-  }
-
-  update(payment, paymentData): boolean {
-    let isUpdated = false;
-    let data = {
-      TenantId: payment.TenantId,
-      RoomId: payment.RoomId,
-      BuildingId: payment.BuildingId,
-      ReferenceNumber: payment.ReferenceNumber,
-      AmountInvoiced: payment.AmountInvoiced,
-      AmountPaid: Number(payment.AmountPaid) + paymentData.Amount,
-      OutstandingAmount: Number(payment.OutstandingAmount - paymentData.Amount),
-      PaymentMonth: payment.PaymentMonth,
-      PaymentYear: payment.PaymentYear,
-      PaymentDate: paymentData.Date,
-      StatusId: payment.StatusId,
-      PaymentStatus: payment.PaymentStatus,
-      PaymentId: payment.PaymentId
-    }
-    if(data.OutstandingAmount == 0){
-      data.PaymentStatus = PAID
-    }
-
-    this.paymentService.updatePayment(data)
-      .subscribe(response => {
-        if (response == 1) {
-          isUpdated = true;
-        }
+    })
+    // save new  payments 
+    this.paymentService.addPayments(newPayments).subscribe(response => {
+      if (!isNaN(response)) {
+       // update payments
+       this.paymentService.updatePayments(updatedPayments).subscribe(response => {
+        if (!isNaN(response)) {
+          this.showSuccess(response);
+          this.updateInvoices();
+        } 
       });
-    return isUpdated;
+      } 
+    });
+  
   }
+
+  //Boolean update payment
+  // updatePayment(referenceNumber: number, paymentData: IPayment): boolean {
+  //   let isUpdated = false;
+  //   let data = {
+  //     PaymentMonth: new Date().getMonth(),
+  //     ReferenceNumber: referenceNumber
+  //   };
+  //   this.paymentService.getPayment(data).subscribe(response => {
+  //     if (response.PaymentId > 0) {
+  //       debugger;
+  //       if (this.update(response, paymentData)) {
+  //         isUpdated = true;
+  //       }
+  //     }
+  //   });
+  //   return isUpdated;
+  // }
+
+  // update(payment, paymentData): boolean {
+  //   let isUpdated = false;
+  //   let data = {
+  //     TenantId: payment.TenantId,
+  //     RoomId: payment.RoomId,
+  //     BuildingId: payment.BuildingId,
+  //     ReferenceNumber: payment.ReferenceNumber,
+  //     AmountInvoiced: payment.AmountInvoiced,
+  //     AmountPaid: Number(payment.AmountPaid) + paymentData.Amount,
+  //     OutstandingAmount: Number(payment.OutstandingAmount - paymentData.Amount),
+  //     PaymentMonth: payment.PaymentMonth,
+  //     PaymentYear: payment.PaymentYear,
+  //     PaymentDate: paymentData.Date,
+  //     StatusId: payment.StatusId,
+  //     PaymentStatus: payment.PaymentStatus,
+  //     PaymentId: payment.PaymentId
+  //   };
+  //   if (data.OutstandingAmount == 0) {
+  //     data.PaymentStatus = PAID;
+  //   }
+
+  //   this.paymentService.updatePayment(data).subscribe(response => {
+  //     if (response == 1) {
+  //       isUpdated = true;
+  //     }
+  //   });
+  //   return isUpdated;
+  // }
+ 
 }

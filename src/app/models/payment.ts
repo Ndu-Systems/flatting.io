@@ -25,6 +25,7 @@ export interface IPaymentReport {
 }
 
 export interface ISavePayments{
+PaymentId:number;
 TenantId:number;
 RoomId:number;
 BuildingId:number;
