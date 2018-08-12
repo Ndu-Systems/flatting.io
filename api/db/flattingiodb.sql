@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2018 at 07:55 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: Aug 12, 2018 at 09:48 PM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -80,18 +80,20 @@ CREATE TABLE `invoice` (
   `Month` int(11) NOT NULL,
   `Name` varchar(225) NOT NULL,
   `RoomId` int(11) NOT NULL,
-  `StatusId` int(11) NOT NULL
+  `StatusId` int(11) NOT NULL,
+  `TenantId` int(5) NOT NULL,
+  `Balance` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `invoice`
 --
 
-INSERT INTO `invoice` (`InvoiceId`, `ReferenceNumber`, `Amount`, `Month`, `Name`, `RoomId`, `StatusId`) VALUES
-(1, 2019, '5000', 7, 'Ndumiso Mthembu', 2, 2),
-(2, 2018, '2500', 7, 'Free ', 3, 3),
-(3, 2017, '9500', 7, 'Betty ', 2, 3),
-(4, 2016, '2500', 7, 'Ronda ', 1, 1);
+INSERT INTO `invoice` (`InvoiceId`, `ReferenceNumber`, `Amount`, `Month`, `Name`, `RoomId`, `StatusId`, `TenantId`, `Balance`) VALUES
+(1, 2019, '5000', 7, 'Ndumiso Mthembu', 2, 2, 2, '0'),
+(2, 2018, '2500', 7, 'Freedom', 3, 3, 1, '1000'),
+(3, 2017, '1500', 7, 'Betty ', 2, 2, 4, '0'),
+(4, 2016, '2500', 7, 'Ronda ', 1, 1, 5, '2500');
 
 -- --------------------------------------------------------
 
@@ -158,22 +160,10 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`PaymentId`, `TenantId`, `RoomId`, `BuildingId`, `ReferenceNumber`, `AmountInvoiced`, `AmountPaid`, `OutstandingAmount`, `PaymentMonth`, `PaymentYear`, `PaymentDate`, `StatusId`, `PaymentStatus`) VALUES
-(1, 1, 1, 1, 2016, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
-(2, 1, 1, 1, 2017, '9500', '14000', '-4500', 7, 2018, '27/08/2018', 1, 'incomplete'),
-(3, 1, 1, 1, 2019, '5000', '5000', '0', 7, 2018, '1/08/2018', 1, 'paid'),
-(4, 1, 1, 1, 2018, '2500', '3000', '-500', 7, 2018, '7/08/2018', 1, 'incomplete'),
-(5, 1, 1, 1, 2018, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
-(6, 1, 1, 1, 2016, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
-(7, 1, 1, 1, 2017, '9500', '10000', '-500', 7, 2018, '1/08/2018', 1, 'incomplete'),
-(8, 1, 1, 1, 2016, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
-(9, 1, 1, 1, 2017, '9500', '4000', '5500', 7, 2018, '1/08/2018', 1, 'incomplete'),
-(10, 1, 1, 1, 2018, '2500', '3000', '-500', 7, 2018, '7/08/2018', 1, 'incomplete'),
-(11, 1, 1, 1, 2016, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
-(12, 1, 1, 1, 2017, '9500', '2000', '7500', 7, 2018, '1/08/2018', 1, 'incomplete'),
-(13, 1, 1, 1, 2018, '2500', '3000', '-500', 7, 2018, '7/08/2018', 1, 'incomplete'),
-(14, 1, 1, 1, 2016, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
-(15, 1, 1, 1, 2017, '9500', '2000', '7500', 7, 2018, '1/08/2018', 1, 'incomplete'),
-(16, 1, 1, 1, 2018, '2500', '1500', '1000', 7, 2018, '7/08/2018', 1, 'incomplete');
+(1, 5, 1, 1, 2016, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
+(2, 4, 2, 1, 2017, '1500', '6000', '-4500', 7, 2018, '27/08/2018', 1, 'paid'),
+(3, 2, 2, 1, 2019, '5000', '5000', '0', 7, 2018, '1/08/2018', 1, 'paid'),
+(4, 1, 3, 1, 2018, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid');
 
 -- --------------------------------------------------------
 
@@ -482,7 +472,7 @@ ALTER TABLE `maintenance`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `PaymentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `PaymentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `roles`

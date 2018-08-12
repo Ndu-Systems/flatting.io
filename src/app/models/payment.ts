@@ -12,6 +12,7 @@ export interface IInvoice {
     RoomId: number;
     StatusId: number;
     TenantId: number;
+    Balance:number;
     
 }
 export interface IPaymentReport {
@@ -24,6 +25,7 @@ export interface IPaymentReport {
     Status:string;
     Date:string;
     TenantId:number;
+    OutstandingAmount:number;
     
 }
 

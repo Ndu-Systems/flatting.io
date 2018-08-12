@@ -18,7 +18,8 @@ foreach($invoices as $invoice) {
     Month=?,
     Name=?,
     RoomId=?,
-    StatusId=? 
+    StatusId=?,
+    Balance=?
     WHERE InvoiceId=?");
 
 if($result->execute(array(
@@ -28,7 +29,8 @@ if($result->execute(array(
     $invoice->Name,
     $invoice->RoomId,
     $invoice->StatusId,
-    $invoice->InvoiceId
+    $invoice->Balance,
+    $invoice->InvoiceId,
 ))){	
     	$count = $count +1;	
 }

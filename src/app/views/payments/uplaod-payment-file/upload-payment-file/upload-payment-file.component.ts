@@ -138,6 +138,7 @@ export class UploadPaymentFileComponent implements OnInit {
             Status: "unpaid",
             Date: "7",
             TenantId:Number(x.TenantId),
+            OutstandingAmount:x.Amount
           };
           this.paymentReport.push(obj);
         }
@@ -157,13 +158,14 @@ export class UploadPaymentFileComponent implements OnInit {
             Status: undefined,
             Date: undefined,
             TenantId:undefined,
+            OutstandingAmount:undefined
 
           };
           //Update Payments
       
             //New Bank Files
             if (bank_row.Ref === Number(invoice_data.ReferenceNumber)) {
-              repObj.AmountInvoiced = invoice_data.Amount;
+              repObj.AmountInvoiced = invoice_data.Balance;
               repObj.AmountPaid = bank_row.Amount;
               repObj.Month = invoice_data.Month;
               repObj.Name = invoice_data.Name;
@@ -171,9 +173,10 @@ export class UploadPaymentFileComponent implements OnInit {
               repObj.TenantId = invoice_data.TenantId;
               repObj.Ref = invoice_data.ReferenceNumber;
               repObj.Date = bank_row.Date;
+              repObj.OutstandingAmount =Number(invoice_data.Balance -  bank_row.Amount);
               repObj.Status = this.GetStatus(
                 bank_row.Amount,
-                invoice_data.Amount
+                invoice_data.Balance
               );
               this.paymentReport.push(repObj);
             }
@@ -189,34 +192,37 @@ export class UploadPaymentFileComponent implements OnInit {
   }
 
   updateInvoices() {
+    debugger;
     this.paymentReport.forEach(payment => {
       let invoice: IInvoice;
       if (payment.Status === PAID) {
         invoice = {
-          ReferenceNumber: payment.Ref,
+          ReferenceNumber: Number(payment.Ref),
           Amount: payment.AmountInvoiced,
-          Month: payment.Month,
+          Month: Number(payment.Month),
           Name: payment.Name,
-          RoomId: payment.Room,
+          RoomId: Number(payment.Room),
           StatusId: 2,
+          Balance:0,
           TenantId:Number(payment.TenantId),
-          InvoiceId: this.invoiceData.filter(
+          InvoiceId: Number(this.invoiceData.filter(
             x => x.ReferenceNumber == payment.Ref
-          )[0].InvoiceId
+          )[0].InvoiceId)
         };
       }
       if (payment.Status == INCOMPLETE) {
         invoice = {
-          ReferenceNumber: payment.Ref,
+          ReferenceNumber: Number(payment.Ref),
           Amount: payment.AmountInvoiced,
-          Month: payment.Month,
+          Month: Number(payment.Month),
           Name: payment.Name,
-          RoomId: payment.Room,
+          RoomId: Number(payment.Room),
           StatusId: 3,
+          Balance:payment.OutstandingAmount,
           TenantId:Number(payment.TenantId),
-          InvoiceId: this.invoiceData.filter(
+          InvoiceId: Number(this.invoiceData.filter(
             x => x.ReferenceNumber == payment.Ref
-          )[0].InvoiceId
+          )[0].InvoiceId)
         };
       }
       if (invoice) {
