@@ -11,6 +11,7 @@ export interface IInvoice {
     Name: string;
     RoomId: number;
     StatusId: number;
+    TenantId: number;
     
 }
 export interface IPaymentReport {
@@ -22,6 +23,8 @@ export interface IPaymentReport {
     Room:number;
     Status:string;
     Date:string;
+    TenantId:number;
+    
 }
 
 export interface ISavePayments{

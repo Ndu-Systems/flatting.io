@@ -136,7 +136,8 @@ export class UploadPaymentFileComponent implements OnInit {
             Name: x.Name,
             Room: x.RoomId,
             Status: "unpaid",
-            Date: "7"
+            Date: "7",
+            TenantId:Number(x.TenantId),
           };
           this.paymentReport.push(obj);
         }
@@ -154,7 +155,9 @@ export class UploadPaymentFileComponent implements OnInit {
             Name: undefined,
             Room: undefined,
             Status: undefined,
-            Date: undefined
+            Date: undefined,
+            TenantId:undefined,
+
           };
           //Update Payments
       
@@ -165,6 +168,7 @@ export class UploadPaymentFileComponent implements OnInit {
               repObj.Month = invoice_data.Month;
               repObj.Name = invoice_data.Name;
               repObj.Room = invoice_data.RoomId;
+              repObj.TenantId = invoice_data.TenantId;
               repObj.Ref = invoice_data.ReferenceNumber;
               repObj.Date = bank_row.Date;
               repObj.Status = this.GetStatus(
@@ -195,6 +199,7 @@ export class UploadPaymentFileComponent implements OnInit {
           Name: payment.Name,
           RoomId: payment.Room,
           StatusId: 2,
+          TenantId:Number(payment.TenantId),
           InvoiceId: this.invoiceData.filter(
             x => x.ReferenceNumber == payment.Ref
           )[0].InvoiceId
@@ -208,6 +213,7 @@ export class UploadPaymentFileComponent implements OnInit {
           Name: payment.Name,
           RoomId: payment.Room,
           StatusId: 3,
+          TenantId:Number(payment.TenantId),
           InvoiceId: this.invoiceData.filter(
             x => x.ReferenceNumber == payment.Ref
           )[0].InvoiceId
@@ -233,8 +239,8 @@ export class UploadPaymentFileComponent implements OnInit {
     this.paymentReport.forEach(data => {
       let saveReportObj: ISavePayments = {
         PaymentId:0,
-        TenantId: 1,
-        RoomId: 1,
+        TenantId: Number(data.TenantId),
+        RoomId: data.Room,
         BuildingId: 1,
         AmountInvoiced: data.AmountInvoiced,
         AmountPaid: data.AmountPaid,
