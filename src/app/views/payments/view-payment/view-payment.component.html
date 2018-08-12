@@ -4,11 +4,10 @@
     <h4 class="mb-sm-0 pt-3">
       <a routerLink="/dashboard">Home Page</a>
       <span>/</span>
-      <span>Payments</span>
+      <span><a routerLink="/payments">Payments</a></span>/
+      <span>Payments Details</span>
     </h4>
-    <div>
-      <a type="button" class="btn btn-primary waves-light" routerLink="/payments/process" mdbWavesEffect>process payment</a>
-    </div>
+   
     <form class="d-flex md-form justify-content-center">
       <input type="search" placeholder="Search payments" aria-label="Search" [(ngModel)]="search" [ngModelOptions]="{standalone: true}"
         class="form-control">
@@ -27,31 +26,20 @@
           <table class="table">
             <thead class="mdb-color darken-3">
               <tr class="text-white">
-                <th>Ref#</th>
-                <th>Room</th>
-                <th>Name</th>
-                <th>Amount Invoiced</th>
-                <th>Balance</th>
-                <th>Amount Paid</th>
-                <th>Status</th>
-                <th>Actions</th>
-
+                <th>Payment Date</th>
+                <th>OutStanding</th>
+                <th>Amont Paid</th>
+               
                
                
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of data | filter: search | paginate: { itemsPerPage:  4, currentPage: p }">
-                <td>{{item.ReferenceNumber}}</td>
-                <td>{{item.RoomNumber}}</td>
-                <td>{{item.FirstName}}</td>
-                <td>R {{item.AmountInvoicedOriginal}}</td>
-                <td class="{{item.OutstandingAmount<=0}}">R {{item.OutstandingAmount}}</td>
+                <td>{{item.Createdate}}</td>
+                <td>R {{item.AmountInvoiced}}</td>
                 <td>R {{item.AmountPaid}}</td>
-                <td> {{item.PaymentStatus}}</td>
-                <td>
-                  <button type="button" class="btn btn-primary waves-light" (click)="viewPayment(item)" mdbWavesEffect>view</button>
-                </td>
+               
               </tr>
             </tbody>
           </table>

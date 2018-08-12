@@ -26,6 +26,7 @@ export interface IPaymentReport {
     Date:string;
     TenantId:number;
     OutstandingAmount:number;
+    AmountInvoicedOriginal:number;
     
 }
 
@@ -37,6 +38,7 @@ BuildingId:number;
 AmountInvoiced:number;
 AmountPaid:number;
 OutstandingAmount:number;
+AmountInvoicedOriginal:number;
 PaymentMonth:number;
 PaymentYear:number;
 PaymentDate:string;

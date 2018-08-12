@@ -1,4 +1,5 @@
 export interface IPaymentDetails {
+    PaymentId:number;
     ReferenceNumber: string;
     RoomId: string;
     RoomNumber: string;
@@ -8,4 +9,5 @@ export interface IPaymentDetails {
     AmountInvoiced: string;
     AmountPaid: string;
     PaymentStatus: string;
+    AmountInvoicedOriginal:number;
 }

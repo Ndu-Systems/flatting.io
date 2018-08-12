@@ -44,6 +44,17 @@ if($result->execute(array(
     $payment->PaymentId
  
 ))){	
+        // save history
+        $saveHistory =  $conn->prepare("INSERT INTO paymentshistory(PaymentId,TenantId, RoomId, BuildingId,ReferenceNumber, AmountInvoiced, AmountPaid, OutstandingAmount, PaymentMonth, PaymentYear, PaymentDate, StatusId,PaymentStatus,Createdate) VALUES 
+        (?,?,?,?,?,?,?,?,?,?,?,?,?,now())");
+        $saveHistory->execute(array(
+            $payment->PaymentId,
+            $payment->TenantId,$payment->RoomId,$payment->BuildingId,$payment->ReferenceNumber,$payment->AmountInvoiced,$payment->AmountPaid,
+            $payment->OutstandingAmount,$payment->PaymentMonth,$payment->PaymentYear,$payment->PaymentDate
+            ,$payment->StatusId,$payment->PaymentStatus
+        ));
+
+        //end save history
     	$count = $count +1;	
 }
 else{

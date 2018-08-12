@@ -33,7 +33,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of tenants| filter: search | paginate: { itemsPerPage:  10, currentPage: p }">
-              <th scope="row">1</th>
+              <th scope="row">{{item.TenantId}}</th>
               <td>{{item.FirstName}} {{item.Surname}}</td>
               <td>{{item.Email}}</td>
               <td>{{item.ContactNumber}}</td>

@@ -2,6 +2,7 @@ import { PaymentsService } from './../../../services/payments/payments.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IPaymentDetails } from '../../../models/payment-details.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payments',
@@ -10,11 +11,15 @@ import { IPaymentDetails } from '../../../models/payment-details.model';
 })
 export class PaymentsComponent implements OnInit {
   payments$:Observable<Array<IPaymentDetails>>;
-  constructor(private paymentService:PaymentsService) {
+  constructor(private paymentService:PaymentsService,    private route : Router
+  ) {
     this.payments$ = this.paymentService.getPaymentDetails();
    }
 
   ngOnInit() {
+  }
+  viewPayment(payment:IPaymentDetails){    
+    this.route.navigate(['/payments/view', payment.PaymentId]);
   }
 
 }

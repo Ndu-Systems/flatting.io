@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2018 at 09:48 PM
+-- Generation Time: Aug 13, 2018 at 12:34 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -92,7 +92,7 @@ CREATE TABLE `invoice` (
 INSERT INTO `invoice` (`InvoiceId`, `ReferenceNumber`, `Amount`, `Month`, `Name`, `RoomId`, `StatusId`, `TenantId`, `Balance`) VALUES
 (1, 2019, '5000', 7, 'Ndumiso Mthembu', 2, 2, 2, '0'),
 (2, 2018, '2500', 7, 'Freedom', 3, 3, 1, '1000'),
-(3, 2017, '1500', 7, 'Betty ', 2, 2, 4, '0'),
+(3, 2017, '9500', 7, 'Betty ', 2, 2, 4, '0'),
 (4, 2016, '2500', 7, 'Ronda ', 1, 1, 5, '2500');
 
 -- --------------------------------------------------------
@@ -145,6 +145,7 @@ CREATE TABLE `payments` (
   `RoomId` int(11) NOT NULL,
   `BuildingId` int(11) NOT NULL,
   `ReferenceNumber` int(11) NOT NULL,
+  `AmountInvoicedOriginal` decimal(25,0) NOT NULL,
   `AmountInvoiced` decimal(10,0) NOT NULL,
   `AmountPaid` decimal(10,0) NOT NULL,
   `OutstandingAmount` decimal(10,0) NOT NULL,
@@ -159,11 +160,47 @@ CREATE TABLE `payments` (
 -- Dumping data for table `payments`
 --
 
-INSERT INTO `payments` (`PaymentId`, `TenantId`, `RoomId`, `BuildingId`, `ReferenceNumber`, `AmountInvoiced`, `AmountPaid`, `OutstandingAmount`, `PaymentMonth`, `PaymentYear`, `PaymentDate`, `StatusId`, `PaymentStatus`) VALUES
-(1, 5, 1, 1, 2016, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
-(2, 4, 2, 1, 2017, '1500', '6000', '-4500', 7, 2018, '27/08/2018', 1, 'paid'),
-(3, 2, 2, 1, 2019, '5000', '5000', '0', 7, 2018, '1/08/2018', 1, 'paid'),
-(4, 1, 3, 1, 2018, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid');
+INSERT INTO `payments` (`PaymentId`, `TenantId`, `RoomId`, `BuildingId`, `ReferenceNumber`, `AmountInvoicedOriginal`, `AmountInvoiced`, `AmountPaid`, `OutstandingAmount`, `PaymentMonth`, `PaymentYear`, `PaymentDate`, `StatusId`, `PaymentStatus`) VALUES
+(1, 5, 1, 1, 2016, '2500', '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid'),
+(2, 4, 2, 1, 2017, '9500', '1500', '6000', '-4500', 7, 2018, '27/08/2018', 1, 'paid'),
+(3, 2, 2, 1, 2019, '5000', '5000', '5000', '0', 7, 2018, '1/08/2018', 1, 'paid'),
+(4, 1, 3, 1, 2018, '2500', '2500', '1500', '1000', 7, 2018, '7/08/2018', 1, 'incomplete');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `paymentshistory`
+--
+
+CREATE TABLE `paymentshistory` (
+  `paymentsHistoryId` int(11) NOT NULL,
+  `PaymentId` int(11) NOT NULL,
+  `TenantId` int(11) NOT NULL,
+  `RoomId` int(11) NOT NULL,
+  `BuildingId` int(11) NOT NULL,
+  `ReferenceNumber` int(11) NOT NULL,
+  `AmountInvoiced` decimal(10,0) NOT NULL,
+  `AmountPaid` decimal(10,0) NOT NULL,
+  `OutstandingAmount` decimal(10,0) NOT NULL,
+  `PaymentMonth` int(2) NOT NULL,
+  `PaymentYear` int(5) NOT NULL,
+  `PaymentDate` varchar(25) DEFAULT NULL,
+  `StatusId` int(11) NOT NULL,
+  `PaymentStatus` varchar(25) NOT NULL,
+  `Createdate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `paymentshistory`
+--
+
+INSERT INTO `paymentshistory` (`paymentsHistoryId`, `PaymentId`, `TenantId`, `RoomId`, `BuildingId`, `ReferenceNumber`, `AmountInvoiced`, `AmountPaid`, `OutstandingAmount`, `PaymentMonth`, `PaymentYear`, `PaymentDate`, `StatusId`, `PaymentStatus`, `Createdate`) VALUES
+(1, 1, 5, 1, 1, 2016, '2500', '0', '2500', 7, 2018, '7', 1, 'unpaid', '2018-08-13 00:33:15'),
+(2, 2, 4, 2, 1, 2017, '9500', '2000', '7500', 7, 2018, '1/08/2018', 1, 'incomplete', '2018-08-13 00:33:15'),
+(3, 3, 2, 2, 1, 2019, '5000', '5000', '0', 7, 2018, '1/08/2018', 1, 'paid', '2018-08-13 00:33:15'),
+(4, 4, 1, 3, 1, 2018, '2500', '1500', '1000', 7, 2018, '7/08/2018', 1, 'incomplete', '2018-08-13 00:33:15'),
+(5, 2, 4, 2, 1, 2017, '7500', '6000', '1500', 7, 2018, '27/08/2018', 1, 'incomplete', '2018-08-13 00:33:43'),
+(6, 2, 4, 2, 1, 2017, '1500', '6000', '-4500', 7, 2018, '27/08/2018', 1, 'paid', '2018-08-13 00:34:10');
 
 -- --------------------------------------------------------
 
@@ -393,6 +430,12 @@ ALTER TABLE `payments`
   ADD KEY `StatusId_2` (`StatusId`);
 
 --
+-- Indexes for table `paymentshistory`
+--
+ALTER TABLE `paymentshistory`
+  ADD PRIMARY KEY (`paymentsHistoryId`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -473,6 +516,12 @@ ALTER TABLE `maintenance`
 --
 ALTER TABLE `payments`
   MODIFY `PaymentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `paymentshistory`
+--
+ALTER TABLE `paymentshistory`
+  MODIFY `paymentsHistoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `roles`

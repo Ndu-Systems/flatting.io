@@ -1,3 +1,4 @@
+import { ViewPaymentComponent } from './views/payments/view-payment/view-payment.component';
 import { PaymentsComponent } from './views/payments/payments/payments.component';
 import { AddBuildingComponent } from './views/buildings/add-building/add-building.component';
 import { UploadPaymentFileComponent } from './views/payments/uplaod-payment-file/upload-payment-file/upload-payment-file.component';
@@ -48,7 +49,9 @@ const routes: Route[] = [
     path: 'payments', children:
       [
         { path: '', component: PaymentsComponent, canActivate: [AuthGuard] },        
-        { path: 'process', component: UploadPaymentFileComponent, canActivate: [AuthGuard] }
+        { path: 'process', component: UploadPaymentFileComponent, canActivate: [AuthGuard] },
+        { path: 'view/:id', component: ViewPaymentComponent, canActivate: [AuthGuard] },
+
       ]
   }
 ];

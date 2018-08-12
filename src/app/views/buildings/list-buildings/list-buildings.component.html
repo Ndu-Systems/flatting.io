@@ -34,7 +34,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of buildings | paginate: { itemsPerPage:  5, currentPage: p }  | filter:search">
-              <th scope="row">1</th>
+              <th scope="row">{{item.BuildingId}}</th>
               <td>{{item.BuildingName}}</td>
               <td>{{item.City}}</td>
               <td>{{item.AddressLine1}} <br/> {{item.AddressLine2}} <br/>{{item.AddressLine3}}</td>

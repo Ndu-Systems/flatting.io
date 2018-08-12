@@ -11,7 +11,10 @@ $result->execute(array(
 if ($result->rowCount() > 0) {
     while ($row = $result->fetch(PDO::FETCH_OBJ)) {
         $data = new Payment();
+        $data->PaymentId = $row->PaymentId;
         $data->AmountInvoiced = $row->AmountInvoiced;
+        $data->AmountInvoicedOriginal = $row->AmountInvoicedOriginal;
+        $data->OutstandingAmount = $row->OutstandingAmount;
         $data->AmountPaid = $row->AmountPaid;
         $data->PaymentStatus = $row->PaymentStatus;
 
@@ -29,6 +32,7 @@ echo $json = json_encode($rows);
 
 class Payment
 {
+    public $PaymentId;
     public $ReferenceNumber;
     public $RoomId;
     public $RoomNumber;
@@ -37,6 +41,8 @@ class Payment
     public $Surname;
 
     public $AmountInvoiced;
+    public $AmountInvoicedOriginal;
+    public $OutstandingAmount;
     public $AmountPaid;
     public $PaymentStatus;
     

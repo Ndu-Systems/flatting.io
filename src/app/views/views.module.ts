@@ -23,6 +23,7 @@ import { PaymentsComponent } from './payments/payments/payments.component';
  
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ViewPaymentComponent } from './payments/view-payment/view-payment.component';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AddTenantComponent,
     ListBuildingsComponent,
     UploadPaymentFileComponent,
+    ViewPaymentComponent,
     ViewBuildingComponent,
     EditBuildingComponent,
     AddBuildingComponent,

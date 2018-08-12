@@ -138,7 +138,8 @@ export class UploadPaymentFileComponent implements OnInit {
             Status: "unpaid",
             Date: "7",
             TenantId:Number(x.TenantId),
-            OutstandingAmount:x.Amount
+            OutstandingAmount:x.Amount,
+            AmountInvoicedOriginal:x.Amount
           };
           let checkIfExistInPaymennts:Array<ISavePayments> = this.existingPayments.filter(x=>x.ReferenceNumber===obj.Ref);
           if(!checkIfExistInPaymennts.length){
@@ -161,7 +162,8 @@ export class UploadPaymentFileComponent implements OnInit {
             Status: undefined,
             Date: undefined,
             TenantId:undefined,
-            OutstandingAmount:undefined
+            OutstandingAmount:undefined,
+            AmountInvoicedOriginal:undefined
 
           };
           //Update Payments
@@ -176,6 +178,7 @@ export class UploadPaymentFileComponent implements OnInit {
               repObj.TenantId = invoice_data.TenantId;
               repObj.Ref = invoice_data.ReferenceNumber;
               repObj.Date = bank_row.Date;
+              repObj.AmountInvoicedOriginal = invoice_data.Amount;
               repObj.OutstandingAmount =Number(invoice_data.Balance -  bank_row.Amount);
               repObj.Status = this.GetStatus(
                 bank_row.Amount,
@@ -259,7 +262,8 @@ export class UploadPaymentFileComponent implements OnInit {
         PaymentDate: data.Date,
         StatusId: 1,
         PaymentStatus: data.Status,
-        ReferenceNumber: data.Ref
+        ReferenceNumber: data.Ref,
+        AmountInvoicedOriginal:data.AmountInvoicedOriginal
       };
       savePaymentsList.push(saveReportObj);
     });
