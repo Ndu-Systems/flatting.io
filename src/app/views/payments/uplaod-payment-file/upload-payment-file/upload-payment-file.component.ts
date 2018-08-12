@@ -140,7 +140,10 @@ export class UploadPaymentFileComponent implements OnInit {
             TenantId:Number(x.TenantId),
             OutstandingAmount:x.Amount
           };
-          this.paymentReport.push(obj);
+          let checkIfExistInPaymennts:Array<ISavePayments> = this.existingPayments.filter(x=>x.ReferenceNumber===obj.Ref);
+          if(!checkIfExistInPaymennts.length){
+            this.paymentReport.push(obj);
+          }
         }
       });
 

@@ -33,6 +33,7 @@
                 <th>Amount Invoiced</th>
                 <th>Amount Paid</th>
                 <th>Status</th>
+                <th>Actions</th>
 
                
                
@@ -46,6 +47,9 @@
                 <td>R {{item.AmountInvoiced}}</td>
                 <td>R {{item.AmountPaid}}</td>
                 <td> {{item.PaymentStatus}}</td>
+                <td>
+                  <button type="button" class="btn btn-primary waves-light" (click)="viewTenant(item)" mdbWavesEffect>view</button>
+                </td>
               </tr>
             </tbody>
           </table>

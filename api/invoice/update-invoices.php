@@ -14,7 +14,6 @@ foreach($invoices as $invoice) {
     if($result->rowCount() > 0)
     $result = $conn->prepare("UPDATE invoice SET    
     ReferenceNumber=?,
-    Amount=?,
     Month=?,
     Name=?,
     RoomId=?,
@@ -24,7 +23,6 @@ foreach($invoices as $invoice) {
 
 if($result->execute(array(
     $invoice->ReferenceNumber,
-    $invoice->Amount,
     $invoice->Month,
     $invoice->Name,
     $invoice->RoomId,
