@@ -1,6 +1,6 @@
-export const IS_LOCAL = true;
-let api ="http://ndu-systems.net/guliwe/api"
-let web ="http://ndu-systems.net"
+export const IS_LOCAL = false;
+let api ="http://flatio.ndu-systems.net/api"
+let web ="http://flatio.ndu-systems.net"
 if(IS_LOCAL){
     api='http://localhost:8080/flat/api';
     web='http://localhost:4200';    

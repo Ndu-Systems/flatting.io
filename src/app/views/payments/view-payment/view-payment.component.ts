@@ -13,6 +13,8 @@ import { ActivatedRoute } from "@angular/router";
 export class ViewPaymentComponent implements OnInit {
   payments$: Observable<Array<any>>;
   paymentId: number;
+  search:string;
+  msgs:any;
   constructor(private paymentService: PaymentsService,
     private selectService: SelectService,
     private route: ActivatedRoute

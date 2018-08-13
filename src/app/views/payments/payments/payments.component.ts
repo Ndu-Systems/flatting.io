@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class PaymentsComponent implements OnInit {
   payments$:Observable<Array<IPaymentDetails>>;
+  search:string;
+  msgs:any;
   constructor(private paymentService:PaymentsService,    private route : Router
   ) {
     this.payments$ = this.paymentService.getPaymentDetails();

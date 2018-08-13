@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 export class ListBuildingsComponent implements OnInit {
 
   buildings$ : Observable<any>;
-
+  search:string;
+  msgs:any;
   constructor(
     private selectService : SelectService,    
     private route : Router
