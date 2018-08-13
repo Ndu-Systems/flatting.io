@@ -4,10 +4,12 @@
     <h4 class="mb-sm-0 pt-3">
       <a routerLink="/dashboard">Home Page</a>
       <span>/</span>
-      <span><a routerLink="/payments">Payments</a></span>/
+      <span>
+        <a routerLink="/payments">Payments</a>
+      </span>/
       <span>Payments Details</span>
     </h4>
-   
+
     <form class="d-flex md-form justify-content-center">
       <input type="search" placeholder="Search payments" aria-label="Search" [(ngModel)]="search" [ngModelOptions]="{standalone: true}"
         class="form-control">
@@ -15,40 +17,37 @@
         <i class="fa fa-search"></i>
       </button>
     </form>
- 
+
   </div>
 </div>
 
 <div class="row wow fadeIn mt-5" *ngIf="payments$|async as data">
-    <div class="col-md-12">
-      <div class="card card-cascade narrower ">
-        <div class="card-body">
-          <table class="table">
-            <thead class="mdb-color darken-3">
-              <tr class="text-white">
-                <th>Payment Date</th>
-                <th>OutStanding</th>
-                <th>Amont Paid</th>
-               
-               
-               
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of data | filter: search | paginate: { itemsPerPage:  4, currentPage: p }">
-                <td>{{item.Createdate}}</td>
-                <td>R {{item.AmountInvoiced}}</td>
-                <td>R {{item.AmountPaid}}</td>
-               
-              </tr>
-            </tbody>
-          </table>
-          <hr class="my-0"> 
-          <div class="col-12 justify-content-center">
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
-          </div>
+  <div class="col-md-12">
+    <div class="card card-cascade narrower ">
+      <div class="card-body">
+        <table class="table">
+          <thead class="mdb-color darken-3">
+            <tr class="text-white">
+              <th>Payment Date</th>
+              <th>Outstanding Amount</th>
+              <th>Amount Paid</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of data | filter: search | paginate: { itemsPerPage:  4, currentPage: p }">
+              <td>{{item.Createdate}}</td>
+              <td>R {{item.AmountInvoiced}}</td>
+              <td>R {{item.AmountPaid}}</td>
+
+            </tr>
+          </tbody>
+        </table>
+        <hr class="my-0">
+        <div class="col-12 justify-content-center">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </div>
       </div>
     </div>
- 
   </div>
+
+</div>

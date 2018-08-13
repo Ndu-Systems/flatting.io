@@ -46,4 +46,3 @@ StatusId:number;
 PaymentStatus:string;
 ReferenceNumber:number;
 }
- 
