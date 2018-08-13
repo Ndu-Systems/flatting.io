@@ -1,4 +1,4 @@
-import { BuildingService } from './../../../services/building/building.service';
+import { BuildingService } from '../../../services/building/building.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Message } from 'primeng/api';

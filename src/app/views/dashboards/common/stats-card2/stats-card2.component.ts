@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ISavePayments } from '../../../../models/Payment';
+import { ISavePayments } from '../../../../models/payment';
 
 @Component({
   selector: 'app-stats-card2',

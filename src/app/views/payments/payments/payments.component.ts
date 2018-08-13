@@ -1,4 +1,4 @@
-import { PaymentsService } from './../../../services/payments/payments.service';
+import { PaymentsService } from '../../../services/payments/payments.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IPaymentDetails } from '../../../models/payment-details.model';

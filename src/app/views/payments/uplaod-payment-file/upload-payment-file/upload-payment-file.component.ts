@@ -1,4 +1,4 @@
-import { InvoiceService } from "./../../../../services/invoices/invoice.service";
+import { InvoiceService } from "../../../../services/invoices/invoice.service";
 import { Subscription } from "rxjs";
 import { Component, OnInit } from "@angular/core";
 import * as XLSX from "ts-xlsx";
@@ -11,7 +11,7 @@ import {
   IPaymentReport,
   IInvoice,
   ISavePayments
-} from "../../../../models/Payment";
+} from "../../../../models/payment";
 import { SelectService } from "../../../../shared/services";
 import { PAID, INCOMPLETE } from "../../../../shared/enum";
 
